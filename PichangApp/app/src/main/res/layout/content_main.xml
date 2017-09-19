@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.miguelch96.pichangapp.activities.MainActivity"
+    tools:showIn="@layout/app_bar_main">
+
+    <TextView
+        android:id="@+id/canchasTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Canchas"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="24sp"
+        android:layout_margin="@dimen/default_margin"/>
+
+    <TextView
+        android:id="@+id/equiposTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Equipos"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintStart_toEndOf="@id/canchasTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="24sp"
+        android:layout_margin="@dimen/default_margin"/>
+
+
+
+
+</android.support.constraint.ConstraintLayout>
