@@ -5,15 +5,11 @@
     tools:context="com.miguelch96.pichangapp.fragments.CanchasFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
+   
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/canchasRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        
-
-
-
-    </LinearLayout>
+        android:layout_height="match_parent"/>
 
 
 </FrameLayout>

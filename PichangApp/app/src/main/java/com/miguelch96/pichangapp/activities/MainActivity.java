@@ -3,6 +3,7 @@ package com.miguelch96.pichangapp.activities;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.miguelch96.pichangapp.R;
+import com.miguelch96.pichangapp.fragments.CanchasFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -80,7 +82,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
+        /*int id = item.getItemId();
 
         if (id == R.id.nav_inicio) {
             // Handle the camera action
@@ -94,10 +96,35 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_retos) {
 
-        }
+        } else if (id == R.id.nav_cancha){
+
+        }*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        return true;
+        return navigateAccordingTo(item.getItemId());
+    }
+
+    private Fragment getFragmentFor(int id){
+        switch (id){
+            case R.id.nav_cancha:
+                return new CanchasFragment();
+        }
+        return null;
+    }
+
+    private boolean navigateAccordingTo(int id){
+        try {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.content,getFragmentFor(id))
+                    .commit();
+
+            return true;
+
+        }catch (NullPointerException e){
+            e.printStackTrace();
+            return false;
+        }
     }
 }
