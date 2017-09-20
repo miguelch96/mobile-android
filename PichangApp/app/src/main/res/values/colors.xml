@@ -9,4 +9,9 @@
     <color name="colorIcons">#FFFFFF</color>
     <color name="colorDivider">#BDBDBD</color>
 
+    <color name="facebookPrimary">#3b5998</color>
+    <color name="facebookTextColor">#ffffff</color>
+
+    <color name="twitterPrimary">#1dcaff</color>
+
 </resources>
