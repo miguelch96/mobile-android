@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.miguelch96.pichangapp.activities.SignInActivity">
+
+
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/cnn"
+        android:layout_margin="@dimen/big_margin" />
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/loginformConstraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/logoImageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="@dimen/default_margin">
+
+        <EditText
+            android:id="@+id/usernameEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Username"
+            android:gravity="center_horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="@dimen/big_margin"/>
+
+        <EditText
+            android:id="@+id/passwordEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:gravity="center_horizontal"
+            app:layout_constraintTop_toBottomOf="@id/usernameEditText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="@dimen/big_margin" />
+
+        <Button
+            android:id="@+id/signinButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Sign In"
+            app:layout_constraintTop_toBottomOf="@id/passwordEditText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="@dimen/big_margin"/>
+
+
+        <TextView
+            android:id="@+id/forgotTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Forgot yout password?"
+            android:textColor="@color/colorSecondaryText"
+            app:layout_constraintTop_toBottomOf="@id/signinButton"
+            app:layout_constraintEnd_toEndOf="@id/signinButton"
+            android:layout_margin="@dimen/medium_margin"/>
+
+        <TextView
+            android:id="@+id/signupTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Not member yet? Sign up now"
+            android:textColor="@color/colorSecondaryText"
+            app:layout_constraintTop_toBottomOf="@id/forgotTextView"
+            app:layout_constraintEnd_toEndOf="@id/signinButton"
+            android:layout_margin="@dimen/medium_margin"/>
+
+
+
+
+        
+    </android.support.constraint.ConstraintLayout>
+
+
+
+    
+    
+
+
+</android.support.constraint.ConstraintLayout>

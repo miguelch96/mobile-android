@@ -7,93 +7,84 @@
     tools:context="com.miguelch96.pichangapp.activities.CanchaActivity">
 
 
-    <android.support.constraint.Guideline
-        android:id="@+id/firstGuideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.33"/>
-
-    <android.support.constraint.Guideline
-        android:id="@+id/secondGuideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.66"/>
-
-    <android.support.constraint.Guideline
-        android:id="@+id/thirdGuideine"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.99"/>
-
-    <android.support.constraint.Guideline
-        android:id="@+id/sesentaGuideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.6015625" />
-
-
-
-    <ImageView
+e    <ImageView
         android:id="@+id/pictureImageView"
         android:layout_width="wrap_content"
         android:layout_height="200dp"
         android:src="@drawable/cancha1"
-        app:layout_constrainstTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:scaleType="centerCrop" />
 
-    
-    <TextView
-        android:id="@+id/nombreTextView"
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/detailsConstraintLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Centro Deportivo Los Laureles"
-        android:textStyle="bold"
-        android:textSize="@dimen/titulo_text_size"
         app:layout_constraintTop_toBottomOf="@id/pictureImageView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="@dimen/default_margin"
-        android:layout_margin="@dimen/default_margin" />
+        android:layout_margin="@dimen/default_margin">
 
-    <TextView
-        android:id="@+id/distritoTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="San Juan de Lurigancho"
-        android:textSize="@dimen/subtitulo_text_size"
-        app:layout_constraintTop_toBottomOf="@id/nombreTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="50dp"
-        android:layout_margin="@dimen/default_margin" />
+        <android.support.constraint.Guideline
+            android:id="@+id/sesentadetailsGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.6" />
+
+        <TextView
+            android:id="@+id/nombreTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Centro Deportivo Los Laureles"
+            android:textStyle="bold"
+            android:textSize="@dimen/titulo_text_size"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_margin="@dimen/default_margin" />
+
+        <TextView
+            android:id="@+id/distritoTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="San Juan de Lurigancho"
+            android:textSize="@dimen/subtitulo_text_size"
+            app:layout_constraintTop_toBottomOf="@id/nombreTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="50dp"
+            android:layout_margin="@dimen/default_margin" />
 
 
-    <TextView
-        android:id="@+id/categoriaTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Futbol 6"
-        android:textSize="@dimen/subtitulo_text_size"
-        app:layout_constraintTop_toBottomOf="@id/distritoTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="@dimen/default_margin" />
+        <TextView
+            android:id="@+id/categoriaTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Futbol 6"
+            android:textSize="@dimen/subtitulo_text_size"
+            app:layout_constraintTop_toBottomOf="@id/distritoTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="@dimen/default_margin" />
 
-    <Button
-        android:id="@+id/reservarButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="S/. 120"
-        app:layout_constraintTop_toBottomOf="@id/categoriaTextView"
-        app:layout_constraintStart_toStartOf="@id/sesentaGuideline"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="@dimen/default_margin"/>
+        <Button
+            android:id="@+id/reservarButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="S/. 120"
+            app:layout_constraintStart_toEndOf="@id/sesentadetailsGuideline"
+            app:layout_constraintTop_toBottomOf="@id/categoriaTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="@dimen/default_margin" />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+
 
     <View
         android:id="@+id/firstDivider"
@@ -101,74 +92,80 @@
         android:layout_height="2dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/reservarButton"
-        app:layout_constraintBottom_toTopOf="@id/mapaImageView"
-        android:background="@color/colorDivider"
-        android:layout_marginTop="@dimen/default_margin"/>
+        app:layout_constraintTop_toBottomOf="@id/detailsConstraintLayout"
+        android:background="@color/colorDivider" />
 
-
-
-
-    <ImageView
-        android:id="@+id/mapaImageView"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:src="@drawable/ic_map_black_24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/reservarButton"
-        app:layout_constraintHorizontal_bias="0.2"
-        android:layout_marginTop="@dimen/big_margin" />
-
-    <TextView
-        android:layout_width="wrap_content"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/opcionesConstraintLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Ubicacion"
-        app:layout_constraintTop_toBottomOf="@id/mapaImageView"
-        app:layout_constraintStart_toStartOf="@id/mapaImageView"
-        app:layout_constraintEnd_toEndOf="@id/mapaImageView"/>
-
-
-    <ImageView
-        android:id="@+id/infoImageView"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:src="@drawable/ic_info_black_24dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/reservarButton"
-        android:layout_marginTop="@dimen/big_margin"
-        app:layout_constraintHorizontal_bias="0.5"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Info"
-        app:layout_constraintStart_toStartOf="@id/infoImageView"
-        app:layout_constraintEnd_toEndOf="@id/infoImageView"
-        app:layout_constraintTop_toBottomOf="@id/infoImageView"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/firstDivider"
+        android:layout_margin="@dimen/default_margin">
 
 
+        <ImageView
+            android:id="@+id/mapaImageView"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_map_black_24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_bias="0.2" />
 
-    <ImageView
-        android:id="@+id/comentariosImageView"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:src="@drawable/ic_menu_camera"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/reservarButton"
-        android:layout_marginTop="@dimen/big_margin"
-        app:layout_constraintHorizontal_bias="0.8"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ubicacion"
+            app:layout_constraintTop_toBottomOf="@id/mapaImageView"
+            app:layout_constraintStart_toStartOf="@id/mapaImageView"
+            app:layout_constraintEnd_toEndOf="@id/mapaImageView"/>
 
-    <TextView
-        android:id="@+id/puntajeTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Puntaje"
-        app:layout_constraintStart_toStartOf="@id/comentariosImageView"
-        app:layout_constraintEnd_toEndOf="@id/comentariosImageView"
-        app:layout_constraintTop_toBottomOf="@id/comentariosImageView"/>
+
+        <ImageView
+            android:id="@+id/infoImageView"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_info_black_24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Info"
+            app:layout_constraintStart_toStartOf="@id/infoImageView"
+            app:layout_constraintEnd_toEndOf="@id/infoImageView"
+            app:layout_constraintTop_toBottomOf="@id/infoImageView"/>
+
+
+
+        <ImageView
+            android:id="@+id/comentariosImageView"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_menu_camera"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"/>
+
+        <TextView
+            android:id="@+id/puntajeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Puntaje"
+            app:layout_constraintStart_toStartOf="@id/comentariosImageView"
+            app:layout_constraintEnd_toEndOf="@id/comentariosImageView"
+            app:layout_constraintTop_toBottomOf="@id/comentariosImageView"/>
+
+
+    </android.support.constraint.ConstraintLayout>
+
 
     <View
         android:id="@+id/secondDivider"
@@ -176,9 +173,12 @@
         android:layout_height="2dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/puntajeTextView"
+        app:layout_constraintTop_toBottomOf="@id/opcionesConstraintLayout"
         android:background="@color/colorDivider"
         android:layout_marginTop="@dimen/default_margin"/>
+
+
+
 
 
 </android.support.constraint.ConstraintLayout>
