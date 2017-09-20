@@ -15,49 +15,120 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:src="@drawable/cnn"
-        android:layout_margin="@dimen/big_margin" />
+        android:layout_margin="@dimen/default_margin" />
+
+
+    <View
+        android:id="@+id/firstDivider"
+        android:layout_width="100dp"
+        android:layout_height="1dp"
+        android:background="@color/colorDivider"
+        app:layout_constraintTop_toBottomOf="@id/logoImageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/default_margin"
+        android:layout_marginBottom="@dimen/default_margin"/>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/socialloginConstraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/firstDivider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <Button
+            android:id="@+id/signinfacebookButton"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Sign in with Facebook"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <Button
+            android:id="@+id/signingoogleButton"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Sign in with Google+"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/signinfacebookButton"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <View
+        android:id="@+id/secondDivider"
+        android:layout_width="100dp"
+        android:layout_height="1dp"
+        android:background="@color/colorDivider"
+        app:layout_constraintTop_toBottomOf="@id/socialloginConstraintLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/default_margin"
+        android:layout_marginBottom="@dimen/default_margin"/>
+
+    <TextView
+        android:id="@+id/orTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="or"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/secondDivider"
+        android:layout_margin="@dimen/default_margin"/>
+
+    <View
+        android:id="@+id/thirddivider"
+        android:layout_width="100dp"
+        android:layout_height="1dp"
+        android:background="@color/colorDivider"
+        app:layout_constraintTop_toBottomOf="@id/orTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/default_margin"
+        android:layout_marginBottom="@dimen/default_margin"/>
 
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/loginformConstraintLayout"
+        android:id="@+id/defaultloginConstraintLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/logoImageView"
+        app:layout_constraintTop_toBottomOf="@id/thirddivider"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="@dimen/default_margin">
 
         <EditText
             android:id="@+id/usernameEditText"
-            android:layout_width="0dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:hint="Username"
             android:gravity="center_horizontal"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_margin="@dimen/big_margin"/>
+            android:layout_margin="@dimen/default_margin" />
 
         <EditText
             android:id="@+id/passwordEditText"
-            android:layout_width="0dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:hint="Password"
             android:gravity="center_horizontal"
             app:layout_constraintTop_toBottomOf="@id/usernameEditText"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_margin="@dimen/big_margin" />
+            android:layout_margin="@dimen/default_margin" />
 
         <Button
             android:id="@+id/signinButton"
-            android:layout_width="0dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:text="Sign In"
             app:layout_constraintTop_toBottomOf="@id/passwordEditText"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_margin="@dimen/big_margin"/>
+            android:layout_margin="@dimen/default_margin"/>
 
 
         <TextView
@@ -67,29 +138,32 @@
             android:text="Forgot yout password?"
             android:textColor="@color/colorSecondaryText"
             app:layout_constraintTop_toBottomOf="@id/signinButton"
-            app:layout_constraintEnd_toEndOf="@id/signinButton"
-            android:layout_margin="@dimen/medium_margin"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="@dimen/default_margin"/>
 
         <TextView
             android:id="@+id/signupTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Not member yet? Sign up now"
+            android:text="Not member yet? "
             android:textColor="@color/colorSecondaryText"
             app:layout_constraintTop_toBottomOf="@id/forgotTextView"
-            app:layout_constraintEnd_toEndOf="@id/signinButton"
+            app:layout_constraintStart_toStartOf="@id/signinButton"
             android:layout_margin="@dimen/medium_margin"/>
 
+        <Button
+            android:id="@+id/signupButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/forgotTextView"
+            app:layout_constraintStart_toEndOf="signupTextView"
+            app:layout_constraintEnd_toEndOf="@id/signinButton"
+            android:text="Sign Up"
+           />
 
-
-
-        
     </android.support.constraint.ConstraintLayout>
 
-
-
-    
-    
 
 
 </android.support.constraint.ConstraintLayout>
