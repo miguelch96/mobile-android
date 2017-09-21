@@ -1,8 +1,12 @@
 package com.miguelch96.pichangapp.activities;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.AlertDialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,7 +38,39 @@ public class CanchaActivity extends AppCompatActivity {
         nombreTextView.setText(cancha.getNombre());
         distritoTextView.setText(cancha.getDistrito());
         categoriaTextView.setText("Categoria Harcodeada");
-        reservarButton.setText("/S. "+cancha.getPrecio());
+        reservarButton.setText("S/. "+cancha.getPrecio());
+
+        reservarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final AlertDialog.Builder builder=new AlertDialog.Builder(view.getContext());
+                final View mview=getLayoutInflater().inflate(R.layout.dialog_escogerfecha,null);
+                CalendarView fechareservaCalendarView=mview.findViewById(R.id.fechareservaCalendarView);
+
+
+
+
+
+                builder.setView(mview);
+                final AlertDialog dialog=builder.create();
+                dialog.show();
+
+
+                fechareservaCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+                    @Override
+                    public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
+                        AlertDialog.Builder builder2=new AlertDialog.Builder(calendarView.getContext());
+                        View view2=getLayoutInflater().inflate(R.layout.dialog_escogerhora,null);
+                        dialog.cancel();
+                        builder2.setView(view2);
+                        AlertDialog dialog2=builder2.create();
+                        dialog2.show();
+                    }
+                });
+            }
+        });
+
+
 
     }
 }
