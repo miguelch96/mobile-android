@@ -99,7 +99,7 @@ public class Cancha {
         return bundle;
     }
 
-    public Cancha from(Bundle bundle){
+    public static Cancha from(Bundle bundle){
         Cancha cancha=new Cancha();
         cancha.setCanchaId(bundle.getInt(CANCHAID))
                 .setNombre(bundle.getString(NOMBRE))

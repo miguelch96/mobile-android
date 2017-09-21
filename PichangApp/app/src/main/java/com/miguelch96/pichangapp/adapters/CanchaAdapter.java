@@ -1,5 +1,7 @@
 package com.miguelch96.pichangapp.adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.miguelch96.pichangapp.R;
+import com.miguelch96.pichangapp.activities.CanchaActivity;
 import com.miguelch96.pichangapp.models.Cancha;
 
 import java.util.List;
@@ -41,6 +44,19 @@ public class CanchaAdapter extends RecyclerView.Adapter<CanchaAdapter.ViewHolder
         holder.precioTextView.setText("S/. "+cancha.getPrecio());
         holder.distritoTextView.setText(cancha.getDistrito());
         holder.rateRatingBar.setRating(cancha.getCalificacion());
+
+        holder.pictureImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Context context = view.getContext();
+                Intent intent=new Intent(context, CanchaActivity.class);
+                intent.putExtras(cancha.toBundle());
+                context.startActivity(intent);
+
+            }
+        });
+
+
 
     }
 

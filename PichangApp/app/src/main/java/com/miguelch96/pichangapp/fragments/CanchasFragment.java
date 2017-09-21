@@ -3,7 +3,7 @@ package com.miguelch96.pichangapp.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +33,9 @@ public class CanchasFragment extends Fragment {
         View view=inflater.inflate(R.layout.fragment_canchas,container,false);
 
         canchaAdapter=new CanchaAdapter(CanchaRepository.getCanchas());
-        canchasLayoutManager=new GridLayoutManager(view.getContext(),2);
+
+        canchasLayoutManager=new LinearLayoutManager(view.getContext(),LinearLayoutManager.HORIZONTAL,false);
+//        canchasLayoutManager=new GridLayoutManager(view.getContext(),2);
 
         canchasRecyclerView=view.findViewById(R.id.canchasRecyclerView);
         canchasRecyclerView.setAdapter(canchaAdapter);
