@@ -16,6 +16,7 @@ import android.view.MenuItem;
 
 import com.miguelch96.pichangapp.R;
 import com.miguelch96.pichangapp.fragments.CanchasFragment;
+import com.miguelch96.pichangapp.fragments.EquiposFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -109,6 +110,8 @@ public class MainActivity extends AppCompatActivity
         switch (id){
             case R.id.nav_cancha:
                 return new CanchasFragment();
+            case R.id.nav_equipos:
+                return new EquiposFragment();
         }
         return null;
     }

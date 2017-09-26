@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import com.miguelch96.pichangapp.R;
 import com.miguelch96.pichangapp.adapters.CanchaAdapter;
-import com.miguelch96.pichangapp.models.CanchaRepository;
+import com.miguelch96.pichangapp.repositories.CanchaRepository;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -1,6 +1,7 @@
-package com.miguelch96.pichangapp.models;
+package com.miguelch96.pichangapp.repositories;
 
 import com.miguelch96.pichangapp.R;
+import com.miguelch96.pichangapp.models.Cancha;
 
 import java.util.ArrayList;
 import java.util.List;

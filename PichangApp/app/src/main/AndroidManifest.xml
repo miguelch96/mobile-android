@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.CanchaActivity" />
-        <activity android:name=".activities.SignInActivity"></activity>
+        <activity android:name=".activities.SignInActivity" />
+        <activity android:name=".activities.EquipoActivity"></activity>
     </application>
 
 </manifest>
