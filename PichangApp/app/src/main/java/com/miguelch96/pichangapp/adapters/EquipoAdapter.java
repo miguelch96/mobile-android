@@ -57,7 +57,7 @@ public class EquipoAdapter extends RecyclerView.Adapter<EquipoAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder holder,final int position) {
         final Equipo equipo= equipos.get(position);
 
-        holder.pictureImageView.setImageResource(R.drawable.cancha1);
+        holder.pictureImageView.setImageResource(equipo.getPicture());
         holder.nombreTextView.setText(equipo.getNombre());
         holder.distritoTextView.setText(equipo.getDistrito());
         holder.scoreTextView.setText(String.valueOf(equipo.getScore()));
@@ -67,10 +67,10 @@ public class EquipoAdapter extends RecyclerView.Adapter<EquipoAdapter.ViewHolder
             @Override
             public void onClick(View v) {
                 Intent itemIntent = new Intent(v.getContext(), EquipoActivity.class);
-              //  Bundle bundle = new Bundle();
-               // bundle.putString("name", players.get(position).name);
+                Bundle bundle = new Bundle();
+               bundle.putSerializable("equipo", equipo);
 
-               // itemIntent.putExtras(bundle);
+                itemIntent.putExtras(bundle);
                 v.getContext().startActivity(itemIntent);
             }
         });

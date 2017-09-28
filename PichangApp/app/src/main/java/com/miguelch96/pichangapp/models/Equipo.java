@@ -1,12 +1,13 @@
 package com.miguelch96.pichangapp.models;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Sergio on 26/09/2017.
  */
 
-public class Equipo {
+public class Equipo implements Serializable {
 
     private int EquipoId;
     private String nombre;
@@ -15,13 +16,14 @@ public class Equipo {
     private List<String> comentarios;
     private List<String> integrantes;
     private List<Integer> skills;
+    private List<Integer> pictures;
     private double score;
     private int picture;
 
     public Equipo() {
     }
 
-    public Equipo(int equipoId, String nombre, String distrito, String categoria, List<String> comentarios, List<String> integrantes, List<Integer> skills, double score, int picture) {
+    public Equipo(int equipoId, String nombre, String distrito, String categoria, List<String> comentarios, List<String> integrantes, List<Integer> skills, List<Integer> pictures, double score, int picture) {
         EquipoId = equipoId;
         this.nombre = nombre;
         this.distrito = distrito;
@@ -29,8 +31,17 @@ public class Equipo {
         this.comentarios = comentarios;
         this.integrantes = integrantes;
         this.skills = skills;
+        this.pictures = pictures;
         this.score = score;
         this.picture = picture;
+    }
+
+    public List<Integer> getPictures() {
+        return pictures;
+    }
+
+    public void setPictures(List<Integer> pictures) {
+        this.pictures = pictures;
     }
 
     public int getPicture() {

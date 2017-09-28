@@ -19,6 +19,8 @@ import com.miguelch96.pichangapp.repositories.EquipoRepository;
 public class EquiposFragment extends Fragment {
 
     private RecyclerView equiposRecyclerView;
+    private RecyclerView equipos1RecyclerView;
+    private RecyclerView equipos2RecyclerView;
     private EquipoAdapter equipoAdapter;
     private RecyclerView.LayoutManager equiposLayoutManager;
 
@@ -39,6 +41,14 @@ public class EquiposFragment extends Fragment {
         equiposRecyclerView =view.findViewById(R.id.equiposRecyclerView);
         equiposRecyclerView.setAdapter(equipoAdapter);
         equiposRecyclerView.setLayoutManager(equiposLayoutManager);
+
+        equipos1RecyclerView =view.findViewById(R.id.equipos1RecyclerView);
+        equipos1RecyclerView.setAdapter(equipoAdapter);
+        equipos1RecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext(),LinearLayoutManager.HORIZONTAL,false));
+
+        equipos2RecyclerView =view.findViewById(R.id.equipos2RecyclerView);
+        equipos2RecyclerView.setAdapter(equipoAdapter);
+        equipos2RecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext(),LinearLayoutManager.HORIZONTAL,false));
 
         return view;
     }

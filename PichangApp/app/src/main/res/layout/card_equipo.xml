@@ -6,12 +6,12 @@
     android:id="@+id/equipo_card"
     app:cardCornerRadius="4dp"
     android:elevation="16dp"
-    android:layout_margin="@dimen/default_margin">
+    android:layout_margin="4dp">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/medium_margin">
+        android:layout_margin="4dp">
 
         <ImageView
             android:layout_width="100dp"
@@ -25,6 +25,8 @@
             android:layout_height="wrap_content"
             android:text="Sport gusto"
             android:id="@+id/nombreTextView"
+            android:textSize="10dp"
+            android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/pictureImageView"
             app:layout_constraintLeft_toRightOf="parent"
             app:layout_constraintRight_toLeftOf="parent"/>
@@ -32,26 +34,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Pueblo libre"
+            android:textSize="10dp"
             android:id="@+id/distritoTextView"
             app:layout_constraintTop_toBottomOf="@id/nombreTextView"
             app:layout_constraintLeft_toRightOf="parent"
-            app:layout_constraintRight_toLeftOf="parent"
             />
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:id="@+id/starIcon"
+            android:src="@drawable/ic_star_black_24dp"
+            app:layout_constraintTop_toBottomOf="@id/nombreTextView"
+            app:layout_constraintRight_toLeftOf="parent"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="4.5"
             android:id="@+id/scoreTextView"
-            app:layout_constraintTop_toBottomOf="@id/distritoTextView"
-            app:layout_constraintLeft_toRightOf="parent"
-            app:layout_constraintRight_toLeftOf="parent"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="15dp"
-            android:id="@+id/starIcon"
-            android:src="@drawable/ic_star_black_24dp"
-            app:layout_constraintLeft_toRightOf="@id/scoreTextView"
-            app:layout_constraintTop_toBottomOf="@id/distritoTextView"/>
+            android:textSize="10dp"
+            app:layout_constraintTop_toBottomOf="@id/nombreTextView"
+            app:layout_constraintRight_toLeftOf="@id/starIcon"
+            />
+
 
 
 
