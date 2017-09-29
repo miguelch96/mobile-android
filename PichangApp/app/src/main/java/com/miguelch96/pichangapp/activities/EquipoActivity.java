@@ -1,14 +1,19 @@
 package com.miguelch96.pichangapp.activities;
 
+import android.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.miguelch96.pichangapp.R;
+import com.miguelch96.pichangapp.activities.dialogs.IntegrantesDialog;
+import com.miguelch96.pichangapp.activities.dialogs.ScoresDialog;
+import com.miguelch96.pichangapp.activities.dialogs.SkillsDialog;
 import com.miguelch96.pichangapp.adapters.PictureAdapter;
 import com.miguelch96.pichangapp.models.Equipo;
 
@@ -25,6 +30,8 @@ public class EquipoActivity extends AppCompatActivity {
     TextView nombreTextView;
     TextView distritoTextView;
     TextView categoriaTextView;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,5 +59,39 @@ public class EquipoActivity extends AppCompatActivity {
         nombreTextView.setText(equipo.getNombre());
         distritoTextView.setText(equipo.getDistrito());
         categoriaTextView.setText(equipo.getCategoria());
+
+
+        iconIntegrantes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = getIntent().getExtras();
+                DialogFragment dialog = new IntegrantesDialog();
+
+                dialog.setArguments(bundle);
+                dialog.show(getFragmentManager(), "IntegrantesDialog");
+            }
+        });
+
+        iconSkills.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = getIntent().getExtras();
+                DialogFragment dialog = new SkillsDialog();
+
+                dialog.setArguments(bundle);
+                dialog.show(getFragmentManager(), "SkillsDialog");
+            }
+        });
+
+        iconScore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = getIntent().getExtras();
+                DialogFragment dialog = new ScoresDialog();
+
+                dialog.setArguments(bundle);
+                dialog.show(getFragmentManager(), "ScoresDialog");
+            }
+        });
     }
 }

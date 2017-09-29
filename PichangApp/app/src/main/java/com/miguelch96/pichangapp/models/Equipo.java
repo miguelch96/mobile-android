@@ -1,7 +1,9 @@
 package com.miguelch96.pichangapp.models;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Sergio on 26/09/2017.
@@ -14,26 +16,34 @@ public class Equipo implements Serializable {
     private String distrito;
     private String categoria;
     private List<String> comentarios;
-    private List<String> integrantes;
-    private List<Integer> skills;
+    private List<Double> skills;
     private List<Integer> pictures;
     private double score;
     private int picture;
+    Map<String, Integer> integrantes = new HashMap<String,Integer>();
 
     public Equipo() {
     }
 
-    public Equipo(int equipoId, String nombre, String distrito, String categoria, List<String> comentarios, List<String> integrantes, List<Integer> skills, List<Integer> pictures, double score, int picture) {
+    public Equipo(int equipoId, String nombre, String distrito, String categoria, List<String> comentarios, List<Double> skills, List<Integer> pictures, double score, int picture, Map<String, Integer> integrantes) {
         EquipoId = equipoId;
         this.nombre = nombre;
         this.distrito = distrito;
         this.categoria = categoria;
         this.comentarios = comentarios;
-        this.integrantes = integrantes;
         this.skills = skills;
         this.pictures = pictures;
         this.score = score;
         this.picture = picture;
+        this.integrantes = integrantes;
+    }
+
+    public Map<String, Integer> getIntegrantes() {
+        return integrantes;
+    }
+
+    public void setIntegrantes(Map<String, Integer> integrantes) {
+        this.integrantes = integrantes;
     }
 
     public List<Integer> getPictures() {
@@ -92,19 +102,12 @@ public class Equipo implements Serializable {
         this.comentarios = comentarios;
     }
 
-    public List<String> getIntegrantes() {
-        return integrantes;
-    }
 
-    public void setIntegrantes(List<String> integrantes) {
-        this.integrantes = integrantes;
-    }
-
-    public List<Integer> getSkills() {
+    public List<Double> getSkills() {
         return skills;
     }
 
-    public void setSkills(List<Integer> skills) {
+    public void setSkills(List<Double> skills) {
         this.skills = skills;
     }
 
