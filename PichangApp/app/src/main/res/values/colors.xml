@@ -14,4 +14,10 @@
 
     <color name="twitterPrimary">#1dcaff</color>
 
+
+    <color name="white">#FFFFFF</color>
+    <color name="gray">#595959</color>
+    <color name="primary">#00D98D</color>
+    <color name="secondary">#094371</color>
+
 </resources>
