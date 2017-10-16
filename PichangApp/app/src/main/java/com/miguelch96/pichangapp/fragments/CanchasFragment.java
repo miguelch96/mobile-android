@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.miguelch96.pichangapp.R;
-import com.miguelch96.pichangapp.adapters.CanchaAdapter;
+import com.miguelch96.pichangapp.adapters.cancha.CanchaAdapter;
 import com.miguelch96.pichangapp.repositories.CanchaRepository;
 
 /**

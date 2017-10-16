@@ -19,5 +19,8 @@
     <color name="gray">#595959</color>
     <color name="primary">#00D98D</color>
     <color name="secondary">#094371</color>
+    <color name="orangeLight">#F1B71E</color>
+    <color name="orangeDark">#FB931D</color>
+    <color name="backgroundDefault"> #FAFAFA</color>
 
 </resources>

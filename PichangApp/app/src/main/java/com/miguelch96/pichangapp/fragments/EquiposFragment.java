@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.miguelch96.pichangapp.R;
-import com.miguelch96.pichangapp.adapters.EquipoAdapter;
+import com.miguelch96.pichangapp.adapters.equipo.EquipoAdapter;
 import com.miguelch96.pichangapp.repositories.EquipoRepository;
 
 /**

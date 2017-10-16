@@ -1,4 +1,4 @@
-package com.miguelch96.pichangapp.adapters;
+package com.miguelch96.pichangapp.adapters.equipo;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,10 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.miguelch96.pichangapp.R;
-import com.miguelch96.pichangapp.models.Equipo;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 /**

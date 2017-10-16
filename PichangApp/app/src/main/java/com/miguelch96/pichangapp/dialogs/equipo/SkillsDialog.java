@@ -1,12 +1,15 @@
-package com.miguelch96.pichangapp.activities.dialogs;
+package com.miguelch96.pichangapp.dialogs.equipo;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.miguelch96.pichangapp.R;
@@ -18,12 +21,28 @@ public class SkillsDialog extends DialogFragment {
     private TextView dificultadTextView;
     private TextView juegolimpioTextView;
 
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        getDialog().getWindow().setGravity(Gravity.BOTTOM);
+        WindowManager.LayoutParams p = getDialog().getWindow().getAttributes();
+        p.width = ViewGroup.LayoutParams.MATCH_PARENT;
+
+        p.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE;
+      //  p.y = 200;
+
+        getDialog().getWindow().setAttributes(p);
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Get the layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.activity_skills_dialog, null);
+
+
 
         Bundle bundle = getArguments();
         Equipo equipo =(Equipo) bundle.getSerializable("equipo");
@@ -46,6 +65,9 @@ public class SkillsDialog extends DialogFragment {
         // Pass null as the parent view because its going in the dialog layout
 
         // Add action buttons
+
+
+
         AlertDialog alert = builder.create();
         return alert;
     }

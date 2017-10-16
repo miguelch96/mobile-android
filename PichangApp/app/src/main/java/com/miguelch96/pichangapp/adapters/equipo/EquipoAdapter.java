@@ -1,4 +1,4 @@
-package com.miguelch96.pichangapp.adapters;
+package com.miguelch96.pichangapp.adapters.equipo;
 
 import android.os.Bundle;
 import android.support.v7.widget.CardView;

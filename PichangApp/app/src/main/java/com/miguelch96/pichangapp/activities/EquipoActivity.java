@@ -5,16 +5,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.miguelch96.pichangapp.R;
-import com.miguelch96.pichangapp.activities.dialogs.IntegrantesDialog;
-import com.miguelch96.pichangapp.activities.dialogs.ScoresDialog;
-import com.miguelch96.pichangapp.activities.dialogs.SkillsDialog;
-import com.miguelch96.pichangapp.adapters.PictureAdapter;
+import com.miguelch96.pichangapp.dialogs.equipo.IntegrantesDialog;
+import com.miguelch96.pichangapp.dialogs.equipo.ScoresDialog;
+import com.miguelch96.pichangapp.dialogs.equipo.SkillsDialog;
+import com.miguelch96.pichangapp.adapters.equipo.PictureAdapter;
+import com.miguelch96.pichangapp.fragments.equipo.ElegirCanchaFragment;
 import com.miguelch96.pichangapp.models.Equipo;
 
 public class EquipoActivity extends AppCompatActivity {
@@ -31,12 +35,26 @@ public class EquipoActivity extends AppCompatActivity {
     TextView distritoTextView;
     TextView categoriaTextView;
 
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.toolbar_equipo, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_equipo);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+
+
+
+
         Bundle bundle = getIntent().getExtras();
         Equipo equipo = (Equipo) bundle.getSerializable("equipo");
 
@@ -60,6 +78,20 @@ public class EquipoActivity extends AppCompatActivity {
         distritoTextView.setText(equipo.getDistrito());
         categoriaTextView.setText(equipo.getCategoria());
 
+        buttonRetar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Elegir cancha
+                Bundle bundle = new Bundle();
+                ElegirCanchaFragment fragment = new ElegirCanchaFragment();
+                fragment.setArguments(bundle);
+
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.content,fragment)
+                        .commit();
+            }
+        });
 
         iconIntegrantes.setOnClickListener(new View.OnClickListener() {
             @Override

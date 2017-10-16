@@ -1,4 +1,4 @@
-package com.miguelch96.pichangapp.adapters;
+package com.miguelch96.pichangapp.adapters.cancha;
 
 import android.content.Context;
 import android.content.Intent;

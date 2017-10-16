@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="20dp"
-    tools:context="com.miguelch96.pichangapp.activities.dialogs.ScoresDialog">
+    android:paddingBottom="35dp"
+    tools:context=".dialogs.equipo.ScoresDialog">
 <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
