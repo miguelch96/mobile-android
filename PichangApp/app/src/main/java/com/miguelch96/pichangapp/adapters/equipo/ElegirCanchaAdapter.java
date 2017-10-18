@@ -1,5 +1,9 @@
 package com.miguelch96.pichangapp.adapters.equipo;
 
+import android.app.Activity;
+import android.app.DialogFragment;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.miguelch96.pichangapp.R;
+import com.miguelch96.pichangapp.dialogs.equipo.DiasDialog;
 import com.miguelch96.pichangapp.models.Cancha;
 
 import java.util.List;
@@ -32,6 +37,7 @@ public class ElegirCanchaAdapter extends RecyclerView.Adapter<ElegirCanchaAdapte
         TextView capacidadTextView;
         TextView precioTextView;
         CardView canchaCardView;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -63,6 +69,11 @@ public class ElegirCanchaAdapter extends RecyclerView.Adapter<ElegirCanchaAdapte
             @Override
             public void onClick(View view) {
                 //Elegir horario
+                Bundle bundle = ((Activity) view.getContext()).getIntent().getExtras();
+                DialogFragment dialog = new DiasDialog();
+
+                dialog.setArguments(bundle);
+                dialog.show(((Activity) view.getContext()).getFragmentManager(), "DiasDialog");
             }
         });
     }

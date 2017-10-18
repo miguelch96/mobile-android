@@ -10,15 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.miguelch96.pichangapp.R;
-import com.miguelch96.pichangapp.adapters.HomePagerAdapter;
+import com.miguelch96.pichangapp.adapters.ReservaPagerAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment {
+public class ReservasFragment extends Fragment {
 
 
-    public HomeFragment() {
+    public ReservasFragment() {
         // Required empty public constructor
     }
 
@@ -28,16 +28,16 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         super.onCreate(savedInstanceState);
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_reservas, container, false);
 
 
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
+        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tab_reservas_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Canchas"));
-        tabLayout.addTab(tabLayout.newTab().setText("Equipos"));
+        tabLayout.addTab(tabLayout.newTab().setText("Partidos"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final ViewPager viewPager = (ViewPager) view.findViewById(R.id.pager);
-        final HomePagerAdapter adapter = new HomePagerAdapter
+        final ViewPager viewPager = (ViewPager) view.findViewById(R.id.reservas_pager);
+        final ReservaPagerAdapter adapter = new ReservaPagerAdapter
                 (getFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -59,5 +59,5 @@ public class HomeFragment extends Fragment {
         });
         return view;
     }
+    }
 
-}

@@ -20,6 +20,7 @@ import com.miguelch96.pichangapp.R;
 import com.miguelch96.pichangapp.fragments.CanchasFragment;
 import com.miguelch96.pichangapp.fragments.EquiposFragment;
 import com.miguelch96.pichangapp.fragments.HomeFragment;
+import com.miguelch96.pichangapp.fragments.ReservasFragment;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -53,6 +54,8 @@ public class MainActivity extends AppCompatActivity{
                 return new HomeFragment();
             case R.id.action_team:
                 return new EquiposFragment();
+            case R.id.action_reservas:
+                return new ReservasFragment();
         }
         return null;
     }

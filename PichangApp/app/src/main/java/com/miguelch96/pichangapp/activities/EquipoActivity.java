@@ -18,7 +18,7 @@ import com.miguelch96.pichangapp.dialogs.equipo.IntegrantesDialog;
 import com.miguelch96.pichangapp.dialogs.equipo.ScoresDialog;
 import com.miguelch96.pichangapp.dialogs.equipo.SkillsDialog;
 import com.miguelch96.pichangapp.adapters.equipo.PictureAdapter;
-import com.miguelch96.pichangapp.fragments.equipo.ElegirCanchaFragment;
+import com.miguelch96.pichangapp.dialogs.equipo.ElegirCanchaDialog;
 import com.miguelch96.pichangapp.models.Equipo;
 
 public class EquipoActivity extends AppCompatActivity {
@@ -83,13 +83,10 @@ public class EquipoActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //Elegir cancha
                 Bundle bundle = new Bundle();
-                ElegirCanchaFragment fragment = new ElegirCanchaFragment();
-                fragment.setArguments(bundle);
+                ElegirCanchaDialog dialog = new ElegirCanchaDialog();
+                dialog.setArguments(bundle);
 
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.content,fragment)
-                        .commit();
+                dialog.show(getFragmentManager(), "ElegirCanchaDialog");
             }
         });
 

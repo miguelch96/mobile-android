@@ -4,17 +4,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.miguelch96.pichangapp.fragments.CanchasFragment;
-import com.miguelch96.pichangapp.fragments.EquiposFragment;
+import com.miguelch96.pichangapp.fragments.cancha.ReservasCanchaFragment;
+import com.miguelch96.pichangapp.fragments.equipo.ReservasEquipoFragment;
 
 /**
- * Created by Sergio on 14/10/2017.
+ * Created by Sergio on 17/10/2017.
  */
 
-public class PagerAdapter extends FragmentStatePagerAdapter {
+public class ReservaPagerAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;
 
-    public PagerAdapter(FragmentManager fm, int NumOfTabs) {
+    public ReservaPagerAdapter(FragmentManager fm, int NumOfTabs) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
     }
@@ -24,10 +24,10 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                CanchasFragment tab1 = new CanchasFragment();
+                ReservasCanchaFragment tab1 = new ReservasCanchaFragment();
                 return tab1;
             case 1:
-                EquiposFragment tab2 = new EquiposFragment();
+                ReservasEquipoFragment tab2 = new ReservasEquipoFragment();
                 return tab2;
             default:
                 return null;

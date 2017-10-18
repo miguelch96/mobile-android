@@ -49,13 +49,6 @@ public class IntegrantesDialog extends DialogFragment {
         builder.setView(view);
 
 
-
-
-       // testTextView.setText(equipo.getNombre());
-        // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
-
-                // Add action buttons
         AlertDialog alert = builder.create();
         return alert;
     }
