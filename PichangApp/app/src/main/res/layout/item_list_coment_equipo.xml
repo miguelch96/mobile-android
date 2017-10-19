@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Sergio luyo sfdjsdfsdfsd fsffsdfsdfh sdfdsfhjdfhhjdfh jfdhjdf"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/comentTextView"
+        />
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?android:attr/ratingBarStyleSmall"
+        app:layout_constraintStart_toStartOf="@id/comentTextView"
+        app:layout_constraintTop_toBottomOf="@id/comentTextView"
+        android:layout_marginTop="5dp"
+        android:id="@+id/scoreRating"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Usuario: Sergio Luyp"
+        app:layout_constraintTop_toBottomOf="@id/scoreRating"
+        app:layout_constraintStart_toStartOf="@id/comentTextView"
+        android:layout_marginTop="5dp"
+        android:id="@+id/autorTextView"/>
+
+
+</android.support.constraint.ConstraintLayout>

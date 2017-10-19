@@ -11,6 +11,8 @@ import com.miguelch96.pichangapp.R;
 import java.util.ArrayList;
 import java.util.Map;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * Created by Sergio on 28/09/2017.
  */
@@ -27,7 +29,7 @@ public class IntegrantesAdapter extends RecyclerView.Adapter<IntegrantesAdapter.
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
 
-        ImageView pictureImageView;
+        CircleImageView pictureImageView;
         TextView nombreTextView;
 
 

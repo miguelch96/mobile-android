@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.miguelch96.pichangapp.R;
@@ -36,7 +37,7 @@ public class ElegirCanchaAdapter extends RecyclerView.Adapter<ElegirCanchaAdapte
         TextView materialTextView;
         TextView capacidadTextView;
         TextView precioTextView;
-        CardView canchaCardView;
+        RelativeLayout canchaCardView;
 
 
         public ViewHolder(View itemView) {
@@ -46,7 +47,7 @@ public class ElegirCanchaAdapter extends RecyclerView.Adapter<ElegirCanchaAdapte
             materialTextView = (TextView) itemView.findViewById(R.id.materialTextView);
             capacidadTextView = (TextView) itemView.findViewById(R.id.capacidadTextView);
             precioTextView=(TextView) itemView.findViewById(R.id.precioTextView);
-            canchaCardView=(CardView) itemView.findViewById(R.id.canchaCardView);
+            canchaCardView=(RelativeLayout) itemView.findViewById(R.id.canchaCardView);
         }
     }
 
