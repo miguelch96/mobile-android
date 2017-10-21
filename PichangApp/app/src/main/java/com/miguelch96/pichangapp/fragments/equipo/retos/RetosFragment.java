@@ -1,4 +1,4 @@
-package com.miguelch96.pichangapp.fragments;
+package com.miguelch96.pichangapp.fragments.equipo.retos;
 
 
 import android.os.Bundle;
@@ -10,15 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.miguelch96.pichangapp.R;
-import com.miguelch96.pichangapp.adapters.ReservaPagerAdapter;
+import com.miguelch96.pichangapp.adapters.RetosPagerAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ReservasFragment extends Fragment {
+public class RetosFragment extends Fragment {
 
 
-    public ReservasFragment() {
+    public RetosFragment() {
         // Required empty public constructor
     }
 
@@ -28,16 +28,16 @@ public class ReservasFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         super.onCreate(savedInstanceState);
-        View view = inflater.inflate(R.layout.fragment_reservas, container, false);
+        View view = inflater.inflate(R.layout.fragment_retos, container, false);
 
 
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tab_reservas_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Reservas"));
-        tabLayout.addTab(tabLayout.newTab().setText("Partidos"));
+        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tab_retos_layout);
+        tabLayout.addTab(tabLayout.newTab().setText("Enviados"));
+        tabLayout.addTab(tabLayout.newTab().setText("Recibidos"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final ViewPager viewPager = (ViewPager) view.findViewById(R.id.reservas_pager);
-        final ReservaPagerAdapter adapter = new ReservaPagerAdapter
+        final ViewPager viewPager = (ViewPager) view.findViewById(R.id.retos_pager);
+        final RetosPagerAdapter adapter = new RetosPagerAdapter
                 (getFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -59,5 +59,5 @@ public class ReservasFragment extends Fragment {
         });
         return view;
     }
-    }
 
+}

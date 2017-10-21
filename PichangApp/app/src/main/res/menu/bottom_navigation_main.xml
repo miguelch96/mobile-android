@@ -20,9 +20,9 @@
         android:title="@string/title_reservas"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_retos"
         android:enabled="true"
-        android:icon="@drawable/ic_settings_black_24dp"
-        android:title="@string/title_settings"
+        android:icon="@drawable/ic_import_export_black_24dp"
+        android:title="@string/title_retos"
         app:showAsAction="ifRoom" />
 </menu>

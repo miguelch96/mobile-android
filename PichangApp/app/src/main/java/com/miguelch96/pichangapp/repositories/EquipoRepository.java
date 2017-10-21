@@ -2,6 +2,7 @@ package com.miguelch96.pichangapp.repositories;
 
 import com.miguelch96.pichangapp.R;
 import com.miguelch96.pichangapp.models.Equipo;
+import com.miguelch96.pichangapp.models.Reto;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,6 +14,8 @@ import java.util.Map;
  */
 
 public class EquipoRepository {
+
+
 
     public static List<Equipo> getEquipos()
     {
@@ -49,5 +52,16 @@ public class EquipoRepository {
         equipos.add(new Equipo(0, "Universitario", "Breña", "Futbol 11", coments,skills,pictures, 5.0, R.drawable.equipo3,integrantes));
         equipos.add(new Equipo(0, "Cremas", "San isidro", "Futbol 12", coments,skills,pictures, 0, R.drawable.equipo4,integrantes));
         return equipos;
+    }
+
+    public static  List<Reto> getRetos()
+    {
+        List<Reto> retos = new ArrayList<>();
+        retos.add(new Reto(0,getEquipos().get(1), getEquipos().get(0), "10/06/18", CanchaRepository.getCanchas().get(0),"Pendiente"));
+        retos.add(new Reto(1,getEquipos().get(2), getEquipos().get(0), "17/06/18", CanchaRepository.getCanchas().get(1),"Pendiente"));
+        retos.add(new Reto(2,getEquipos().get(3), getEquipos().get(0), "23/06/18", CanchaRepository.getCanchas().get(2),"Pendiente"));
+
+
+        return retos;
     }
 }
