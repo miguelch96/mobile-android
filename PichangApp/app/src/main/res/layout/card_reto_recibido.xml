@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/reto_recibido_card"
+    app:cardCornerRadius="4dp"
+    android:elevation="16dp"
+    android:layout_margin="4dp">
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/roundcorner"
+            android:text="Equipo"
+            android:id="@+id/equipoButton"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="282dp" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/roundcorner"
+            android:textColor="@color/white"
+            android:id="@+id/canchaButton"
+            android:text="Cancha"
+            app:layout_constraintTop_toBottomOf="@+id/equipoButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="10dp"
+            tools:layout_editor_absoluteX="282dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fechaTextView"
+            android:text="Fecha: 17/10/18 - 10pm"
+            app:layout_constraintTop_toTopOf="@+id/equipoButton"
+            app:layout_constraintBottom_toBottomOf="@+id/canchaButton"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteX="4dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Equipo retado: Peloteros FC"
+            android:id="@+id/equipoTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/fechaTextView"
+            tools:layout_editor_absoluteX="4dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/estadoTextView"
+            android:text="Estado: Pendiente"
+            app:layout_constraintTop_toBottomOf="@+id/fechaTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteX="4dp" />
+
+        <LinearLayout
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/canchaButton"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            tools:layout_editor_absoluteX="8dp">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_check_black_24dp"
+                android:id="@+id/acceptButton"
+                android:layout_marginRight="15dp"
+                />
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_clear_black_24dp"
+                android:id="@+id/declineButton"
+                android:layout_marginLeft="15dp"/>
+        </LinearLayout>
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>
