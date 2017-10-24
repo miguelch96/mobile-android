@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.miguelch96.pichangapp.fragments.equipo.EquipoFavoritesFragment;
 import com.miguelch96.pichangapp.fragments.equipo.retos.RetosEnviadosFragment;
 import com.miguelch96.pichangapp.fragments.equipo.retos.RetosRecibidosFragment;
 
@@ -11,10 +12,10 @@ import com.miguelch96.pichangapp.fragments.equipo.retos.RetosRecibidosFragment;
  * Created by Sergio on 19/10/2017.
  */
 
-public class RetosPagerAdapter extends FragmentStatePagerAdapter {
+public class FavoritesPagerAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;
 
-    public RetosPagerAdapter(FragmentManager fm, int NumOfTabs) {
+    public FavoritesPagerAdapter(FragmentManager fm, int NumOfTabs) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
     }
@@ -27,7 +28,7 @@ public class RetosPagerAdapter extends FragmentStatePagerAdapter {
                 RetosEnviadosFragment tab1 = new RetosEnviadosFragment();
                 return tab1;
             case 1:
-                RetosRecibidosFragment tab2 = new RetosRecibidosFragment();
+                EquipoFavoritesFragment tab2 = new EquipoFavoritesFragment();
                 return tab2;
             default:
                 return null;

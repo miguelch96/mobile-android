@@ -34,7 +34,10 @@ public class ReservasFragment extends Fragment {
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tab_reservas_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Reservas"));
         tabLayout.addTab(tabLayout.newTab().setText("Partidos"));
+        tabLayout.addTab(tabLayout.newTab().setText("Retos enviados"));
+        tabLayout.addTab(tabLayout.newTab().setText("Retos recibidos"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
 
         final ViewPager viewPager = (ViewPager) view.findViewById(R.id.reservas_pager);
         final ReservaPagerAdapter adapter = new ReservaPagerAdapter
@@ -51,6 +54,8 @@ public class ReservasFragment extends Fragment {
             public void onTabUnselected(TabLayout.Tab tab) {
 
             }
+
+
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {

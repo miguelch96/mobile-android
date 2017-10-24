@@ -12,9 +12,8 @@
     <string name="title_activity_equipo">EquipoActivity</string>
 
     <string name="title_home">Inicio</string>
-    <string name="title_team">Equipo</string>
+    <string name="title_favorites">Favoritos</string>
     <string name="title_reservas">Histórico</string>
-    <string name="title_retos">Retos</string>
 
     <string name="action_favorite">Favorite</string>
 </resources>

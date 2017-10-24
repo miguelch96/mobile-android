@@ -4,11 +4,15 @@
 <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:name="com.orm.SugarApp"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <meta-data android:name="DATABASE" android:value="moviles_db.db" />
+        <meta-data android:name="VERSION" android:value="2" />
+        <meta-data android:name="QUERY_LOG" android:value="true" />
+        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="com.miguelch96.pichangapp.models" />
         <activity
             android:name=".activities.MainActivity">
             <intent-filter>
@@ -21,9 +25,6 @@
         <activity android:name=".activities.EquipoActivity">
         <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".activities.MainActivity" />
         </activity>
-        <activity android:name=".dialogs.equipo.IntegrantesDialog" />
-        <activity android:name=".dialogs.equipo.SkillsDialog" />
-        <activity android:name=".dialogs.equipo.ScoresDialog"></activity>
     </application>
 
 </manifest>

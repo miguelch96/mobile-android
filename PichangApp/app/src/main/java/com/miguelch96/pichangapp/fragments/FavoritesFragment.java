@@ -1,4 +1,4 @@
-package com.miguelch96.pichangapp.fragments.equipo.retos;
+package com.miguelch96.pichangapp.fragments;
 
 
 import android.os.Bundle;
@@ -10,15 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.miguelch96.pichangapp.R;
-import com.miguelch96.pichangapp.adapters.RetosPagerAdapter;
+import com.miguelch96.pichangapp.adapters.FavoritesPagerAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RetosFragment extends Fragment {
+public class FavoritesFragment extends Fragment {
 
 
-    public RetosFragment() {
+    public FavoritesFragment() {
         // Required empty public constructor
     }
 
@@ -26,18 +26,17 @@ public class RetosFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         super.onCreate(savedInstanceState);
-        View view = inflater.inflate(R.layout.fragment_retos, container, false);
+        View view = inflater.inflate(R.layout.fragment_favorites, container, false);
 
 
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tab_retos_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Enviados"));
-        tabLayout.addTab(tabLayout.newTab().setText("Recibidos"));
+        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tab_favorites_layout);
+        tabLayout.addTab(tabLayout.newTab().setText("Canchas"));
+        tabLayout.addTab(tabLayout.newTab().setText("Equipos"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final ViewPager viewPager = (ViewPager) view.findViewById(R.id.retos_pager);
-        final RetosPagerAdapter adapter = new RetosPagerAdapter
+        final ViewPager viewPager = (ViewPager) view.findViewById(R.id.favorites_pager);
+        final FavoritesPagerAdapter adapter = new FavoritesPagerAdapter
                 (getFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
