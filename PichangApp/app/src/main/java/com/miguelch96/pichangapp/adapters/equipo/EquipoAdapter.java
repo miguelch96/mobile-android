@@ -5,6 +5,8 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+
+import com.androidnetworking.widget.ANImageView;
 import com.miguelch96.pichangapp.R;
 import com.miguelch96.pichangapp.activities.EquipoActivity;
 import com.miguelch96.pichangapp.models.Equipo;
@@ -29,7 +31,7 @@ public class EquipoAdapter extends RecyclerView.Adapter<EquipoAdapter.ViewHolder
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView pictureImageView;
+        ANImageView pictureImageView;
         TextView nombreTextView;
         TextView distritoTextView;
         TextView scoreTextView;
@@ -57,7 +59,9 @@ public class EquipoAdapter extends RecyclerView.Adapter<EquipoAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder holder,final int position) {
         final Equipo equipo= equipos.get(position);
 
-        holder.pictureImageView.setImageResource(equipo.getPicture());
+        holder.pictureImageView.setImageUrl(equipo.getUrlPicture());
+        holder.pictureImageView.setDefaultImageResId(R.mipmap.ic_launcher);
+        holder.pictureImageView.setErrorImageResId(R.mipmap.ic_launcher);
         holder.nombreTextView.setText(equipo.getNombre());
         holder.distritoTextView.setText(equipo.getDistrito());
         holder.scoreTextView.setText(String.valueOf(equipo.getScore()));

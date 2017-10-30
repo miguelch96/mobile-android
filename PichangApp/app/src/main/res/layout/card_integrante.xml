@@ -5,10 +5,10 @@
     android:paddingTop="5dp"
     android:paddingBottom="5dp"
     >
-        <de.hdodenhof.circleimageview.CircleImageView
+
+        <com.androidnetworking.widget.ANImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:src="@drawable/int1"
             android:id="@+id/pictureImageView"
             android:layout_marginLeft="10dp"
             />

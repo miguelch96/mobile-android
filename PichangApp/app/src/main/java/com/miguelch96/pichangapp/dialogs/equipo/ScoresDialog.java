@@ -19,7 +19,9 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.miguelch96.pichangapp.R;
+import com.miguelch96.pichangapp.models.Comentario;
 import com.miguelch96.pichangapp.models.Equipo;
+import com.miguelch96.pichangapp.repositories.EquipoRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +30,9 @@ public class ScoresDialog extends DialogFragment {
 
     private ListView listView;
 
-    public class ItemComentAdapter extends ArrayAdapter<String>
+    public class ItemComentAdapter extends ArrayAdapter<Comentario>
     {
-        private List<String> items;
+        private List<Comentario> items;
         private ComentViewHolder comentHolder;
         private Context context;
 
@@ -41,7 +43,7 @@ public class ScoresDialog extends DialogFragment {
             RatingBar ratingBar;
         }
 
-        public ItemComentAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<String> objects) {
+        public ItemComentAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<Comentario> objects) {
             super(context, resource, objects);
             this.items = objects;
             this.context=context;
@@ -61,11 +63,11 @@ public class ScoresDialog extends DialogFragment {
                 v.setTag(comentHolder);
             } else comentHolder = (ComentViewHolder) v.getTag();
 
-            String e = items.get(position);
+            Comentario e = items.get(position);
             if (e != null) {
-                comentHolder.autorTextView.setText("David Molina");
-                comentHolder.comentTextView.setText(e);
-                comentHolder.ratingBar.setNumStars(3);
+                comentHolder.autorTextView.setText(e.getUsuario());
+                comentHolder.comentTextView.setText(e.getComentario());
+                comentHolder.ratingBar.setRating(Float.valueOf(String.valueOf(e.getCalificacion())));
             }
 
             return v;

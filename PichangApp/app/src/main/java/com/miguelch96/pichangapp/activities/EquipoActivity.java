@@ -2,6 +2,7 @@ package com.miguelch96.pichangapp.activities;
 
 import android.app.DialogFragment;
 import android.content.ClipData;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,6 +24,10 @@ import com.miguelch96.pichangapp.adapters.equipo.PictureAdapter;
 import com.miguelch96.pichangapp.dialogs.equipo.ElegirCanchaDialog;
 import com.miguelch96.pichangapp.models.Equipo;
 import com.miguelch96.pichangapp.models.Favorite;
+import com.miguelch96.pichangapp.repositories.EquipoRepository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EquipoActivity extends AppCompatActivity {
 
@@ -37,11 +42,25 @@ public class EquipoActivity extends AppCompatActivity {
     TextView nombreTextView;
     TextView distritoTextView;
     TextView categoriaTextView;
+    Menu menu;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.toolbar_equipo, menu);
+        this.menu = menu;
+        Bundle bundle = getIntent().getExtras();
+        Equipo equipo = (Equipo) bundle.getSerializable("equipo");
+
+        List<Favorite> f = Favorite.listAll(Favorite.class);
+        for (int i = 0; i<f.size();i++)
+        {
+           if(f.get(i).id==equipo.getEquipoId()){
+               menu.getItem(0).setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite_orange_48dp));
+              break;
+           }
+        }
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -51,10 +70,25 @@ public class EquipoActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         Equipo equipo = (Equipo) bundle.getSerializable("equipo");
 
+
         switch (item.getItemId()) {
             case R.id.action_favorite:
-                Favorite fav = new Favorite(equipo);
-                fav.save();
+                List<Favorite> f = Favorite.listAll(Favorite.class);
+                boolean inFavorite=false;
+                for (int i = 0; i<f.size();i++)
+                {
+                    if(f.get(i).id==equipo.getEquipoId()){
+                        menu.getItem(0).setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite_white_48dp));
+                        Favorite.delete(f.get(i));
+                        inFavorite=true;
+                        break;
+                    }
+                }
+                if(!inFavorite) {
+                    Favorite fav = new Favorite(equipo.getEquipoId());
+                    menu.getItem(0).setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite_orange_48dp));
+                    fav.save();
+                }
                 return true;
 
             default:

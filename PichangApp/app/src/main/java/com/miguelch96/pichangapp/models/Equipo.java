@@ -26,18 +26,18 @@ public class Equipo implements Serializable {
     //falta en el api
     private String distrito;
     private String categoria;
-    private List<String> comentarios;
+    private List<Comentario> comentarios;
 
     private List<Double> skills; //el api da la lista de skills mas no lo principal, el puntaje
     private List<Integer> pictures;
     private double score;
-    private int picture;
-    Map<String, Integer> integrantes = new HashMap<>();//el api da solo los nombres de los integrantes
+    private String urlPicture;
+    Map<String, String> integrantes = new HashMap<String, String>();//el api da solo los nombres de los integrantes
 
     public Equipo() {
     }
 
-    public Equipo(int equipoId, String nombre, String distrito, String categoria, List<String> comentarios, List<Double> skills, List<Integer> pictures, double score, int picture, Map<String, Integer> integrantes) {
+    public Equipo(int equipoId, String nombre, String distrito, String categoria, List<Comentario> comentarios, List<Double> skills, List<Integer> pictures, double score, String picture, Map<String, String> integrantes) {
         EquipoId = equipoId;
         this.nombre = nombre;
         this.distrito = distrito;
@@ -46,21 +46,14 @@ public class Equipo implements Serializable {
         this.skills = skills;
         this.pictures = pictures;
         this.score = score;
-        this.picture = picture;
+        this.urlPicture = picture;
         this.integrantes = integrantes;
     }
 
     public static Equipo from(JSONObject jsonEquipo) {
 
-        Map<String, Integer> miembros = new HashMap<>();
-
-
-        List<String> coments = new ArrayList<>();
-        coments.add("Equipo facil.");
-        coments.add("Pelea el partido hasta el final.");
-        coments.add("Son muy malos!");
-        coments.add("Mejor jueguen voley");
-        coments.add("Rapiditos.");
+        Map<String, String> miembros = new HashMap<>();
+        List<Comentario> coments = new ArrayList<>();
 
         List<Integer> pictures = new ArrayList<>();
         pictures.add(R.drawable.pic1);
@@ -78,22 +71,29 @@ public class Equipo implements Serializable {
             equipo.setEquipoId(jsonEquipo.getInt("equipoId"));
             equipo.setNombre(jsonEquipo.getString("nombre"));
 
-            equipo.setCategoria("Futbol 6");
-            equipo.setComentarios(coments);
-            equipo.setDistrito("Pueblo Libre");
+            equipo.setCategoria(jsonEquipo.getJSONObject("categoria").getString("nombre"));
+            equipo.setDistrito(jsonEquipo.getJSONObject("distrito").getString("nombre"));
 
 
             JSONArray jsonMiembros = jsonEquipo.getJSONArray("miembros");
             for (int i = 0; i <jsonMiembros.length(); i++)
             {
                 JSONObject miembro = jsonMiembros.getJSONObject(i);
-                miembros.put(miembro.getString("nombre") +" "+ miembro.getString("apellido"),R.drawable.empty_user);
+                miembros.put(miembro.getString("nombre") +" "+ miembro.getString("apellido"),miembro.getString("imagenPerfilUrl"));
+            }
+
+            JSONArray jsonComents = jsonEquipo.getJSONArray("comentarios");
+            for (int i = 0; i <jsonComents.length(); i++)
+            {
+                JSONObject coment = jsonComents.getJSONObject(i);
+                coments.add(new Comentario(coment.getString("comentario") ,coment.getDouble("calificacion"),coment.getString("nombreUsuario"),coment.getString("imagenPerfilUrl")));
             }
             equipo.setIntegrantes(miembros);
-            equipo.setPicture(R.drawable.equipo1);
+            equipo.setUrlPicture(jsonEquipo.getString("imagenPortadaUrl"));
             equipo.setPictures(pictures);
-            equipo.setScore(5.0);
+            equipo.setScore(jsonEquipo.getDouble("calificacion"));
             equipo.setSkills(skills);
+            equipo.setComentarios(coments);
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
@@ -114,11 +114,11 @@ public class Equipo implements Serializable {
         return equipos;
     }
 
-    public Map<String, Integer> getIntegrantes() {
+    public Map<String, String> getIntegrantes() {
         return integrantes;
     }
 
-    public void setIntegrantes(Map<String, Integer> integrantes) {
+    public void setIntegrantes(Map<String, String> integrantes) {
         this.integrantes = integrantes;
     }
 
@@ -130,12 +130,12 @@ public class Equipo implements Serializable {
         this.pictures = pictures;
     }
 
-    public int getPicture() {
-        return picture;
+    public String getUrlPicture() {
+        return urlPicture;
     }
 
-    public void setPicture(int picture) {
-        this.picture = picture;
+    public void setUrlPicture(String urlPicture) {
+        this.urlPicture = urlPicture;
     }
 
     public int getEquipoId() {
@@ -170,11 +170,11 @@ public class Equipo implements Serializable {
         this.categoria = categoria;
     }
 
-    public List<String> getComentarios() {
+    public List<Comentario> getComentarios() {
         return comentarios;
     }
 
-    public void setComentarios(List<String> comentarios) {
+    public void setComentarios(List<Comentario> comentarios) {
         this.comentarios = comentarios;
     }
 

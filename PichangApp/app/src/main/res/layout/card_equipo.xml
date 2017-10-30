@@ -13,12 +13,11 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp">
 
-        <ImageView
+        <com.androidnetworking.widget.ANImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:id="@+id/pictureImageView"
             app:layout_constraintTop_toBottomOf="parent"
-            android:src="@drawable/equipo1"
             android:scaleType="centerCrop"/>
         <TextView
             android:layout_width="wrap_content"

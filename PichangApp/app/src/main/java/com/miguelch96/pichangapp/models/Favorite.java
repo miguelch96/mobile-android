@@ -10,20 +10,14 @@ import java.util.List;
 
 public class Favorite extends SugarRecord {
 
-    private Equipo equipo;
+    public int id;
 
     public Favorite() {
     }
 
-    public Favorite(Equipo equipo) {
-        this.equipo = equipo;
+    public Favorite(int id) {
+        this.id = id;
     }
 
-    public Equipo getEquipo() {
-        return equipo;
-    }
 
-    public void setEquipo(Equipo equipo) {
-        this.equipo = equipo;
-    }
 }
