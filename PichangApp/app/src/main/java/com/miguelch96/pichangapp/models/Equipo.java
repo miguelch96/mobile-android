@@ -28,8 +28,8 @@ public class Equipo implements Serializable {
     private String categoria;
     private List<Comentario> comentarios;
 
-    private List<Double> skills; //el api da la lista de skills mas no lo principal, el puntaje
-    private List<Integer> pictures;
+    private List<Skill> skills; //el api da la lista de skills mas no lo principal, el puntaje
+    private List<String> pictures;
     private double score;
     private String urlPicture;
     Map<String, String> integrantes = new HashMap<String, String>();//el api da solo los nombres de los integrantes
@@ -37,7 +37,7 @@ public class Equipo implements Serializable {
     public Equipo() {
     }
 
-    public Equipo(int equipoId, String nombre, String distrito, String categoria, List<Comentario> comentarios, List<Double> skills, List<Integer> pictures, double score, String picture, Map<String, String> integrantes) {
+    public Equipo(int equipoId, String nombre, String distrito, String categoria, List<Comentario> comentarios, List<Skill> skills, List<String> pictures, double score, String picture, Map<String, String> integrantes) {
         EquipoId = equipoId;
         this.nombre = nombre;
         this.distrito = distrito;
@@ -50,20 +50,13 @@ public class Equipo implements Serializable {
         this.integrantes = integrantes;
     }
 
+
     public static Equipo from(JSONObject jsonEquipo) {
 
         Map<String, String> miembros = new HashMap<>();
         List<Comentario> coments = new ArrayList<>();
-
-        List<Integer> pictures = new ArrayList<>();
-        pictures.add(R.drawable.pic1);
-        pictures.add(R.drawable.pic2);
-        pictures.add(R.drawable.pic3);
-
-        List<Double> skills = new ArrayList<>();
-        skills.add(3.4);
-        skills.add(4.0);
-        skills.add(2.8);
+        List<String> pictures = new ArrayList<>();
+        List<Skill> skills = new ArrayList<>();
 
         Equipo equipo = new Equipo();
         try {
@@ -88,6 +81,20 @@ public class Equipo implements Serializable {
                 JSONObject coment = jsonComents.getJSONObject(i);
                 coments.add(new Comentario(coment.getString("comentario") ,coment.getDouble("calificacion"),coment.getString("nombreUsuario"),coment.getString("imagenPerfilUrl")));
             }
+            JSONArray jsonPictures= jsonEquipo.getJSONArray("imagenes");
+            for (int i = 0; i <jsonPictures.length(); i++)
+            {
+                JSONObject picture = jsonPictures.getJSONObject(i);
+                pictures.add(picture.getString("imagenUrl"));
+            }
+
+            JSONArray jsonSkills= jsonEquipo.getJSONArray("skills");
+            for (int i = 0; i <jsonSkills.length(); i++)
+            {
+                JSONObject skill = jsonSkills.getJSONObject(i);
+                skills.add(new Skill(skill.getString("nombre"), skill.getString("imagenSkillUrl"),skill.getInt("cantidad")));
+            }
+
             equipo.setIntegrantes(miembros);
             equipo.setUrlPicture(jsonEquipo.getString("imagenPortadaUrl"));
             equipo.setPictures(pictures);
@@ -114,6 +121,7 @@ public class Equipo implements Serializable {
         return equipos;
     }
 
+
     public Map<String, String> getIntegrantes() {
         return integrantes;
     }
@@ -122,11 +130,11 @@ public class Equipo implements Serializable {
         this.integrantes = integrantes;
     }
 
-    public List<Integer> getPictures() {
+    public List<String> getPictures() {
         return pictures;
     }
 
-    public void setPictures(List<Integer> pictures) {
+    public void setPictures(List<String> pictures) {
         this.pictures = pictures;
     }
 
@@ -179,11 +187,11 @@ public class Equipo implements Serializable {
     }
 
 
-    public List<Double> getSkills() {
+    public List<Skill> getSkills() {
         return skills;
     }
 
-    public void setSkills(List<Double> skills) {
+    public void setSkills(List<Skill> skills) {
         this.skills = skills;
     }
 

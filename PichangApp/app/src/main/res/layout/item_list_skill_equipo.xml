@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.androidnetworking.widget.ANImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/skillImage"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/skillImage"
+        android:text="Puntualidad"
+        android:textSize="11dp"
+        android:textStyle="bold"
+        android:id="@+id/nombreTextView"
+        app:layout_constraintStart_toStartOf="@id/skillImage"
+        app:layout_constraintEnd_toEndOf="@id/skillImage"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cantidadTextView"
+        android:text="Recibidos: 5"
+        android:textSize="11dp"
+        app:layout_constraintTop_toBottomOf="@id/nombreTextView"
+        app:layout_constraintStart_toStartOf="@id/skillImage"
+        app:layout_constraintEnd_toEndOf="@id/skillImage"/>
+</android.support.constraint.ConstraintLayout>

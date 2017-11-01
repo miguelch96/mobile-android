@@ -59,9 +59,10 @@ public class EquipoAdapter extends RecyclerView.Adapter<EquipoAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder holder,final int position) {
         final Equipo equipo= equipos.get(position);
 
-        holder.pictureImageView.setImageUrl(equipo.getUrlPicture());
+
         holder.pictureImageView.setDefaultImageResId(R.mipmap.ic_launcher);
         holder.pictureImageView.setErrorImageResId(R.mipmap.ic_launcher);
+        holder.pictureImageView.setImageUrl(equipo.getUrlPicture());
         holder.nombreTextView.setText(equipo.getNombre());
         holder.distritoTextView.setText(equipo.getDistrito());
         holder.scoreTextView.setText(String.valueOf(equipo.getScore()));

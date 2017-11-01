@@ -1,7 +1,6 @@
 package com.miguelch96.pichangapp.activities;
 
 import android.app.DialogFragment;
-import android.content.ClipData;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,16 +16,14 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.miguelch96.pichangapp.R;
+import com.miguelch96.pichangapp.adapters.equipo.SkillAdapter;
 import com.miguelch96.pichangapp.dialogs.equipo.IntegrantesDialog;
 import com.miguelch96.pichangapp.dialogs.equipo.ScoresDialog;
-import com.miguelch96.pichangapp.dialogs.equipo.SkillsDialog;
 import com.miguelch96.pichangapp.adapters.equipo.PictureAdapter;
 import com.miguelch96.pichangapp.dialogs.equipo.ElegirCanchaDialog;
 import com.miguelch96.pichangapp.models.Equipo;
 import com.miguelch96.pichangapp.models.Favorite;
-import com.miguelch96.pichangapp.repositories.EquipoRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class EquipoActivity extends AppCompatActivity {
@@ -35,7 +32,10 @@ public class EquipoActivity extends AppCompatActivity {
     private PictureAdapter picturesAdapter;
     private RecyclerView.LayoutManager picturesLayoutManager;
 
-    ImageButton iconSkills;
+    private RecyclerView skillsRecyclerView;
+    private SkillAdapter skillsAdapter;
+    private RecyclerView.LayoutManager skillsLayoutManager;
+
     ImageButton iconIntegrantes;
     ImageButton iconScore;
     Button buttonRetar;
@@ -120,9 +120,17 @@ public class EquipoActivity extends AppCompatActivity {
         picturesRecyclerView.setAdapter(picturesAdapter);
         picturesRecyclerView.setLayoutManager(picturesLayoutManager);
 
+        skillsAdapter =new SkillAdapter(equipo.getSkills());
+
+        skillsLayoutManager=new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
+
+        skillsRecyclerView =(RecyclerView) findViewById(R.id.skillsRecyclerView);
+        skillsRecyclerView.setAdapter(skillsAdapter);
+        skillsRecyclerView.setLayoutManager(skillsLayoutManager);
+
+
         iconIntegrantes = (ImageButton) findViewById(R.id.iconIntegrantes);
         iconScore = (ImageButton) findViewById(R.id.iconScore);
-        iconSkills = (ImageButton) findViewById(R.id.iconSkills);
         buttonRetar = (Button) findViewById(R.id.retarButton);
         nombreTextView = (TextView) findViewById(R.id.nombreTextView);
         distritoTextView = (TextView) findViewById(R.id.distritoTextView);
@@ -152,17 +160,6 @@ public class EquipoActivity extends AppCompatActivity {
 
                 dialog.setArguments(bundle);
                 dialog.show(getFragmentManager(), "IntegrantesDialog");
-            }
-        });
-
-        iconSkills.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = getIntent().getExtras();
-                DialogFragment dialog = new SkillsDialog();
-
-                dialog.setArguments(bundle);
-                dialog.show(getFragmentManager(), "SkillsDialog");
             }
         });
 

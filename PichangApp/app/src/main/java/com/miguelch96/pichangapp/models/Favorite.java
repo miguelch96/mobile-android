@@ -2,7 +2,7 @@ package com.miguelch96.pichangapp.models;
 
 import com.orm.SugarRecord;
 
-import java.util.List;
+
 
 /**
  * Created by Sergio on 23/10/2017.

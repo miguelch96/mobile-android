@@ -4,7 +4,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+
+import com.androidnetworking.widget.ANImageView;
 import com.miguelch96.pichangapp.R;
 
 import java.util.List;
@@ -15,15 +16,15 @@ import java.util.List;
 
 public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHolder> {
 
-    private List<Integer> pictures;
+    private List<String> pictures;
 
-    public PictureAdapter(List<Integer> pictures) {
+    public PictureAdapter(List<String> pictures) {
         this.pictures = pictures;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView pictureImageView;
+        ANImageView pictureImageView;
 
 
         public ViewHolder(View itemView) {
@@ -42,12 +43,16 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(PictureAdapter.ViewHolder holder, int position) {
-        holder.pictureImageView.setImageResource(pictures.get(position));
+        String value = pictures.get(position);
+
+        holder.pictureImageView.setImageUrl(value);
+        holder.pictureImageView.setErrorImageResId(R.mipmap.ic_launcher);
+        holder.pictureImageView.setDefaultImageResId(R.mipmap.ic_launcher);
     }
 
     @Override
     public int getItemCount() {
-        return pictures.size();
+        return pictures==null? 0 : pictures.size();
     }
 
 

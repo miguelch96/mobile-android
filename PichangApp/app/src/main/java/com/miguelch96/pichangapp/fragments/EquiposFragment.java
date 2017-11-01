@@ -42,7 +42,7 @@ public class EquiposFragment extends Fragment {
         // Required empty public constructor
     }
 
-    private void updateData() {
+    public void updateData() {
         AndroidNetworking.get("http://pichangappservice.azurewebsites.net/api/equipos")
                 .setPriority(Priority.LOW)
                 .setTag(getString(R.string.app_name))
@@ -68,7 +68,6 @@ public class EquiposFragment extends Fragment {
 
                     }
                 });
-
     }
 
 
