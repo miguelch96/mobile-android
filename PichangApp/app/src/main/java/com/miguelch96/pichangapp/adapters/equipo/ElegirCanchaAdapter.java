@@ -2,9 +2,7 @@ package com.miguelch96.pichangapp.adapters.equipo;
 
 import android.app.Activity;
 import android.app.DialogFragment;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,7 +63,7 @@ public class ElegirCanchaAdapter extends RecyclerView.Adapter<ElegirCanchaAdapte
         holder.distritoTextView.setText("Distrito: "+cancha.getDistrito());
         holder.materialTextView.setText("Material: "+"Sintetico");
         holder.capacidadTextView.setText( "Capacidad: "+"Futbol 6");
-        holder.precioTextView.setText("Precio dia/noche: "+String.valueOf(cancha.getPrecio()));
+        holder.precioTextView.setText("Precio dia/noche: "+String.valueOf(cancha.getPrecios()));
         holder.canchaCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

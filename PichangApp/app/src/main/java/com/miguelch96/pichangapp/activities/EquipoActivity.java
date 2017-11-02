@@ -47,7 +47,7 @@ public class EquipoActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.toolbar_equipo, menu);
+        inflater.inflate(R.menu.toolbar, menu);
         this.menu = menu;
         Bundle bundle = getIntent().getExtras();
         Equipo equipo = (Equipo) bundle.getSerializable("equipo");
@@ -167,6 +167,7 @@ public class EquipoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Bundle bundle = getIntent().getExtras();
+                bundle.putString("object", "equipo");
                 DialogFragment dialog = new ScoresDialog();
 
                 dialog.setArguments(bundle);

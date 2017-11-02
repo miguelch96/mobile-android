@@ -2,6 +2,8 @@ package com.miguelch96.pichangapp.adapters.cancha;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.androidnetworking.widget.ANImageView;
 import com.miguelch96.pichangapp.R;
 import com.miguelch96.pichangapp.activities.CanchaActivity;
 import com.miguelch96.pichangapp.models.Cancha;
@@ -40,23 +43,23 @@ public class CanchaAdapter extends RecyclerView.Adapter<CanchaAdapter.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Cancha cancha=canchas.get(position);
-        holder.pictureImageView.setImageResource(R.drawable.cancha1);
-        holder.precioTextView.setText("S/. "+cancha.getPrecio());
+        holder.pictureImageView.setErrorImageResId(R.mipmap.ic_launcher);
+        holder.pictureImageView.setDefaultImageResId(R.mipmap.ic_launcher);
+        holder.pictureImageView.setImageUrl(cancha.getPictureUrl());
         holder.distritoTextView.setText(cancha.getDistrito());
-        holder.rateRatingBar.setRating(cancha.getCalificacion());
+        holder.scoreTextView.setText(String.valueOf(cancha.getScore()));
 
-        holder.pictureImageView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Context context = view.getContext();
-                Intent intent=new Intent(context, CanchaActivity.class);
-                intent.putExtras(cancha.toBundle());
-                context.startActivity(intent);
+                Intent itemIntent = new Intent(view.getContext(), CanchaActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("cancha", cancha);
 
+                itemIntent.putExtras(bundle);
+                view.getContext().startActivity(itemIntent);
             }
         });
-
-
 
     }
 
@@ -76,17 +79,17 @@ public class CanchaAdapter extends RecyclerView.Adapter<CanchaAdapter.ViewHolder
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView pictureImageView;
-        TextView precioTextView;
+        ANImageView pictureImageView;
+        TextView scoreTextView;
         TextView distritoTextView;
-        RatingBar rateRatingBar;
+        CardView cardView;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            pictureImageView=itemView.findViewById(R.id.picturecardImageView);
-            precioTextView=itemView.findViewById(R.id.preciocardTextView);
+            pictureImageView=itemView.findViewById(R.id.pictureImageView);
             distritoTextView=itemView.findViewById(R.id.distritocardTextView);
-            rateRatingBar=itemView.findViewById(R.id.ratecardRatingBar);
+            scoreTextView=itemView.findViewById(R.id.scoreTextView);
+            cardView=itemView.findViewById(R.id.cancha_card);
 
         }
     }

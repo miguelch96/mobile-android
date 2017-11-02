@@ -13,15 +13,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.miguelch96.pichangapp.R;
+import com.miguelch96.pichangapp.models.Cancha;
 import com.miguelch96.pichangapp.models.Comentario;
 import com.miguelch96.pichangapp.models.Equipo;
-import com.miguelch96.pichangapp.repositories.EquipoRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,10 +84,23 @@ public class ScoresDialog extends DialogFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Bundle bundle = getArguments();
-        Equipo equipo =(Equipo) bundle.getSerializable("equipo");
+        String value = bundle.getString("object");
+        List<Comentario> comentarios = new ArrayList<>();
+
+        if(value.equalsIgnoreCase("cancha"))
+        {
+            Cancha cancha = (Cancha) bundle.getSerializable("cancha");
+            comentarios =cancha.getComentarios();
+        }
+        else if(value.equalsIgnoreCase("equipo"))
+        {
+            Equipo equipo = (Equipo) bundle.getSerializable("equipo");
+            comentarios =equipo.getComentarios();
+        }
+
 
         ItemComentAdapter adapter = new ItemComentAdapter(getActivity(),
-                R.layout.item_list_coment_equipo, equipo.getComentarios());
+                R.layout.item_list_coment_equipo, comentarios);
 
         /** Setting the array adapter to the list view */
         listView.setAdapter(adapter);
@@ -99,7 +111,7 @@ public class ScoresDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Get the layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.activity_scores_dialog, null);
+        View view = inflater.inflate(R.layout.dialog_scores, null);
 
 
         listView = view.findViewById(R.id.listComents);

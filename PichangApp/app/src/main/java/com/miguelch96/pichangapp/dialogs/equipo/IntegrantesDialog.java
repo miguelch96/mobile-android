@@ -18,7 +18,7 @@ public class IntegrantesDialog extends DialogFragment {
    // @Override
     //protected void onCreate(Bundle savedInstanceState) {
       //  super.onCreate(savedInstanceState);
-       // setContentView(R.layout.activity_integrantes_dialog);
+       // setContentView(R.layout.dialog_integrantes);
    // }
 
 
@@ -31,7 +31,7 @@ public class IntegrantesDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Get the layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.activity_integrantes_dialog, null);
+        View view = inflater.inflate(R.layout.dialog_integrantes, null);
 
         Bundle bundle = getArguments();
         Equipo equipo =(Equipo) bundle.getSerializable("equipo");

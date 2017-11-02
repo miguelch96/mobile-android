@@ -19,7 +19,7 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             android:elevation="4dp"
-            app:menu="@menu/toolbar_equipo"
+            app:menu="@menu/toolbar"
             app:navigationIcon="?attr/homeAsUpIndicator"
             />
 
