@@ -31,14 +31,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.CanchaActivity" />
+        <activity android:name=".activities.CanchaActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainActivity" />
+        </activity>
         <activity android:name=".activities.SignInActivity" />
         <activity android:name=".activities.EquipoActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity" />
         </activity>
-        <activity android:name=".dialogs.cancha.InfoDialog"></activity>
     </application>
 
 </manifest>

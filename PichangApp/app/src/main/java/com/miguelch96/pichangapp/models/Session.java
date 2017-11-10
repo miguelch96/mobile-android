@@ -31,7 +31,7 @@ public class Session implements Serializable {
                     public void onResponse(JSONObject response) {
                         try {
 
-                            session[0] = Equipo.from(response.getJSONObject(""));
+                            session[0] = Equipo.from(response.getJSONObject("equipo"));
 
 
                         } catch (JSONException e) {

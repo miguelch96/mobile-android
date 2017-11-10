@@ -1,10 +1,12 @@
 package com.miguelch96.pichangapp.models;
 
+import java.io.Serializable;
+
 /**
  * Created by Sergio on 19/10/2017.
  */
 
-public class Reto {
+public class Reto implements Serializable {
 
     private int id;
     private int retado;

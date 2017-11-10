@@ -55,7 +55,7 @@ public class Equipo implements Serializable {
                     public void onResponse(JSONObject response) {
                         try {
 
-                            e[0] =Equipo.from(response.getJSONArray("equipos").getJSONObject(0));
+                            e[0] =Equipo.from(response.getJSONObject("equipo"));
 
 
                         } catch (JSONException e) {
