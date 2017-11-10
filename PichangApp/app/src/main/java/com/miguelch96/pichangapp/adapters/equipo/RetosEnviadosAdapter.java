@@ -78,7 +78,9 @@ public class RetosEnviadosAdapter extends RecyclerView.Adapter<RetosEnviadosAdap
             public void onClick(View view) {
                 Context context = view.getContext();
                 Intent intent=new Intent(context, CanchaActivity.class);
-                intent.putExtras(reto.getCancha().toBundle());
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("cancha", reto.getCancha());
+                intent.putExtras(bundle);
                 context.startActivity(intent);
             }
         });

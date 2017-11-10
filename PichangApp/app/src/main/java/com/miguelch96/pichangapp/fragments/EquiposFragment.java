@@ -43,7 +43,7 @@ public class EquiposFragment extends Fragment {
     }
 
     public void updateData() {
-        AndroidNetworking.get("http://pichangappservice.azurewebsites.net/api/equipos")
+        AndroidNetworking.get("http://miguelch96-001-site1.itempurl.com/api/equipos")
                 .setPriority(Priority.LOW)
                 .setTag(getString(R.string.app_name))
                 .build()

@@ -18,7 +18,7 @@ import android.widget.TextView;
 import com.miguelch96.pichangapp.R;
 import com.miguelch96.pichangapp.adapters.equipo.SkillAdapter;
 import com.miguelch96.pichangapp.dialogs.equipo.IntegrantesDialog;
-import com.miguelch96.pichangapp.dialogs.equipo.ScoresDialog;
+import com.miguelch96.pichangapp.dialogs.ScoresDialog;
 import com.miguelch96.pichangapp.adapters.equipo.PictureAdapter;
 import com.miguelch96.pichangapp.dialogs.equipo.ElegirCanchaDialog;
 import com.miguelch96.pichangapp.models.Equipo;
@@ -106,9 +106,6 @@ public class EquipoActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-
-
-
         Bundle bundle = getIntent().getExtras();
         Equipo equipo = (Equipo) bundle.getSerializable("equipo");
 
@@ -144,8 +141,9 @@ public class EquipoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Elegir cancha
-                Bundle bundle = new Bundle();
+                Bundle bundle = getIntent().getExtras();
                 ElegirCanchaDialog dialog = new ElegirCanchaDialog();
+                bundle.putString("object", "equipo");
                 dialog.setArguments(bundle);
 
                 dialog.show(getFragmentManager(), "ElegirCanchaDialog");

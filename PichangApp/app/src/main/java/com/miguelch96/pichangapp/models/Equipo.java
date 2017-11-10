@@ -1,5 +1,11 @@
 package com.miguelch96.pichangapp.models;
 
+import android.util.Log;
+
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.miguelch96.pichangapp.R;
 
 import org.json.JSONArray;
@@ -22,6 +28,8 @@ public class Equipo implements Serializable {
     //en el api
     private int EquipoId;
     private String nombre;
+    private List<Reto> retosEnviados;
+    private List<Reto> retosRecibidos;
 
     //falta en el api
     private String distrito;
@@ -37,17 +45,29 @@ public class Equipo implements Serializable {
     public Equipo() {
     }
 
-    public Equipo(int equipoId, String nombre, String distrito, String categoria, List<Comentario> comentarios, List<Skill> skills, List<String> pictures, double score, String picture, Map<String, String> integrantes) {
-        EquipoId = equipoId;
-        this.nombre = nombre;
-        this.distrito = distrito;
-        this.categoria = categoria;
-        this.comentarios = comentarios;
-        this.skills = skills;
-        this.pictures = pictures;
-        this.score = score;
-        this.urlPicture = picture;
-        this.integrantes = integrantes;
+    public static Equipo findEquipo(int id) {
+        final Equipo[] e = {new Equipo()};
+        AndroidNetworking.get("http://miguelch96-001-site1.itempurl.com/api/equipos/"+ String.valueOf(id))
+                .setPriority(Priority.LOW)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+
+                            e[0] =Equipo.from(response.getJSONArray("equipos").getJSONObject(0));
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                    }
+                });
+        return e[0];
     }
 
 
@@ -57,6 +77,8 @@ public class Equipo implements Serializable {
         List<Comentario> coments = new ArrayList<>();
         List<String> pictures = new ArrayList<>();
         List<Skill> skills = new ArrayList<>();
+        List<Reto> retEnviados = new ArrayList<>();
+        List<Reto> retRecibidos = new ArrayList<>();
 
         Equipo equipo = new Equipo();
         try {
@@ -95,6 +117,24 @@ public class Equipo implements Serializable {
                 skills.add(new Skill(skill.getString("nombre"), skill.getString("imagenSkillUrl"),skill.getInt("cantidad")));
             }
 
+            JSONObject jsonRetos= jsonEquipo.getJSONObject("retos");
+            JSONArray enviados = jsonRetos.getJSONArray("enviados");
+            for (int i = 0; i <enviados.length(); i++)
+            {
+                JSONObject e = enviados.getJSONObject(i);
+                retEnviados.add(new Reto(e.getInt("retoId"),e.getInt("equipoRetadoId"),e.getInt("equipoRetadorId"),e.getString("fechaEncuentro"),e.getInt("canchaId"),e.getString("estado")));
+            }
+
+            JSONArray recibidos = jsonRetos.getJSONArray("recibidos");
+            for (int i = 0; i <recibidos.length(); i++)
+            {
+                JSONObject e = recibidos.getJSONObject(i);
+                retRecibidos.add(new Reto(e.getInt("retoId"),e.getInt("equipoRetadoId"),e.getInt("equipoRetadorId"),e.getString("fechaEncuentro"),e.getInt("canchaId"),e.getString("estado")));
+            }
+
+
+            equipo.setRetosEnviados(retEnviados);
+            equipo.setRetosRecibidos(retRecibidos);
             equipo.setIntegrantes(miembros);
             equipo.setUrlPicture(jsonEquipo.getString("imagenPortadaUrl"));
             equipo.setPictures(pictures);
@@ -201,5 +241,21 @@ public class Equipo implements Serializable {
 
     public void setScore(double score) {
         this.score = score;
+    }
+
+    public List<Reto> getRetosEnviados() {
+        return retosEnviados;
+    }
+
+    public void setRetosEnviados(List<Reto> retosEnviados) {
+        this.retosEnviados = retosEnviados;
+    }
+
+    public List<Reto> getRetosRecibidos() {
+        return retosRecibidos;
+    }
+
+    public void setRetosRecibidos(List<Reto> retosRecibidos) {
+        this.retosRecibidos = retosRecibidos;
     }
 }

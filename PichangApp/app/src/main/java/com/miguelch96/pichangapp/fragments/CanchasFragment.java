@@ -40,7 +40,7 @@ public class CanchasFragment extends Fragment {
     }
 
     public void updateData() {
-        AndroidNetworking.get("http://pichangappservice.azurewebsites.net/api/canchas")
+        AndroidNetworking.get("http://miguelch96-001-site1.itempurl.com/api/canchas")
                 .setPriority(Priority.LOW)
                 .setTag(getString(R.string.app_name))
                 .build()
@@ -74,7 +74,7 @@ public class CanchasFragment extends Fragment {
         View view=inflater.inflate(R.layout.fragment_canchas,container,false);
         canchas= new ArrayList<>();
         updateData();
-        canchaAdapter=new CanchaAdapter(CanchaRepository.getCanchas());
+        canchaAdapter= new CanchaAdapter(canchas);
 
         canchasLayoutManager=new LinearLayoutManager(view.getContext(),LinearLayoutManager.HORIZONTAL,false);
 //        canchasLayoutManager=new GridLayoutManager(view.getContext(),2);

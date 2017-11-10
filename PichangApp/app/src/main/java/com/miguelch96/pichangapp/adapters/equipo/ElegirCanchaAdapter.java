@@ -11,7 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.miguelch96.pichangapp.R;
-import com.miguelch96.pichangapp.dialogs.equipo.DiasDialog;
+import com.miguelch96.pichangapp.dialogs.DiasDialog;
 import com.miguelch96.pichangapp.models.Cancha;
 
 import java.util.List;
@@ -63,12 +63,14 @@ public class ElegirCanchaAdapter extends RecyclerView.Adapter<ElegirCanchaAdapte
         holder.distritoTextView.setText("Distrito: "+cancha.getDistrito());
         holder.materialTextView.setText("Material: "+"Sintetico");
         holder.capacidadTextView.setText( "Capacidad: "+"Futbol 6");
-        holder.precioTextView.setText("Precio dia/noche: "+String.valueOf(cancha.getPrecios()));
+        holder.precioTextView.setText("Precio dia/noche: "+String.valueOf(cancha.getPrecio()));
         holder.canchaCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Elegir horario
                 Bundle bundle = ((Activity) view.getContext()).getIntent().getExtras();
+                bundle.putSerializable("cancha",cancha);
+                bundle.putString("object", "equipo");
                 DialogFragment dialog = new DiasDialog();
 
                 dialog.setArguments(bundle);
@@ -82,5 +84,11 @@ public class ElegirCanchaAdapter extends RecyclerView.Adapter<ElegirCanchaAdapte
         return canchas.size();
     }
 
+    public List<Cancha> getCanchas() {
+        return canchas;
+    }
 
+    public void setCanchas(List<Cancha> canchas) {
+        this.canchas = canchas;
+    }
 }

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.miguelch96.pichangapp.R;
 import com.miguelch96.pichangapp.adapters.equipo.RetosRecibidosAdapter;
+import com.miguelch96.pichangapp.models.Session;
 import com.miguelch96.pichangapp.repositories.EquipoRepository;
 
 /**
@@ -34,7 +35,7 @@ public class RetosRecibidosFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_retos_recibidos,container,false);
 
-        recibidosAdapter =new RetosRecibidosAdapter(EquipoRepository.getRetos());
+        recibidosAdapter =new RetosRecibidosAdapter(Session.getSession().getRetosRecibidos());
 
         recibidosLayoutManager=new LinearLayoutManager(view.getContext(),LinearLayoutManager.VERTICAL,false);
 

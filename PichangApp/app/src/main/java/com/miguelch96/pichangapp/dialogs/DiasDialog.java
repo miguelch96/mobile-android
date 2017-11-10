@@ -1,6 +1,5 @@
-package com.miguelch96.pichangapp.dialogs.equipo;
+package com.miguelch96.pichangapp.dialogs;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -27,7 +25,7 @@ public class DiasDialog extends DialogFragment {
 
     private ImageView backButton;
     private ListView listDias;
-    private String[] dias = {"Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado", "Domingo"};
+    private String[] dias = {"Monday", "Martes", "Miercoles", "Jueves", "Viernes", "Saturday", "Domingo"};
 
 
     @Override
@@ -49,6 +47,7 @@ public class DiasDialog extends DialogFragment {
                 String value = (String)adapterView.getItemAtPosition(i);
 
                 Bundle bundle = getArguments();
+                bundle.putString("dia",value);
                 DialogFragment dialog = new HorariosDialog();
                 dialog.setArguments(bundle);
                 dialog.show(getFragmentManager(), "HorariosDialog");

@@ -1,4 +1,4 @@
-package com.miguelch96.pichangapp.dialogs.equipo;
+package com.miguelch96.pichangapp.dialogs;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -85,6 +85,7 @@ public class ScoresDialog extends DialogFragment {
         super.onActivityCreated(savedInstanceState);
         Bundle bundle = getArguments();
         String value = bundle.getString("object");
+
         List<Comentario> comentarios = new ArrayList<>();
 
         if(value.equalsIgnoreCase("cancha"))

@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 
 import com.miguelch96.pichangapp.R;
 import com.miguelch96.pichangapp.adapters.equipo.RetosEnviadosAdapter;
+import com.miguelch96.pichangapp.models.Cancha;
+import com.miguelch96.pichangapp.models.Equipo;
+import com.miguelch96.pichangapp.models.Session;
 import com.miguelch96.pichangapp.repositories.EquipoRepository;
 
 /**
@@ -32,8 +35,7 @@ public class RetosEnviadosFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_retos_enviados,container,false);
-
-        enviadosAdapter =new RetosEnviadosAdapter(EquipoRepository.getRetos());
+        enviadosAdapter =new RetosEnviadosAdapter(Session.getSession().getRetosEnviados());
 
         enviadosLayoutManager=new LinearLayoutManager(view.getContext(),LinearLayoutManager.VERTICAL,false);
 

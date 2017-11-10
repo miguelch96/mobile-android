@@ -7,13 +7,13 @@ package com.miguelch96.pichangapp.models;
 public class Reto {
 
     private int id;
-    private Equipo retado;
-    private Equipo retador;
+    private int retado;
+    private int retador;
     private String fecha;
-    private Cancha cancha;
+    private int cancha;
     private String estado;
 
-    public Reto(int id, Equipo retado, Equipo retador, String fecha, Cancha cancha, String estado) {
+    public Reto(int id, int retado, int retador, String fecha, int cancha, String estado) {
         this.id = id;
         this.retado = retado;
         this.retador = retador;
@@ -21,6 +21,7 @@ public class Reto {
         this.cancha = cancha;
         this.estado = estado;
     }
+
 
     public Reto() {
     }
@@ -34,18 +35,18 @@ public class Reto {
     }
 
     public Equipo getRetado() {
-        return retado;
+        return Equipo.findEquipo(retado);
     }
 
-    public void setRetado(Equipo retado) {
+    public void setRetado(int retado) {
         this.retado = retado;
     }
 
     public Equipo getRetador() {
-        return retador;
+        return Equipo.findEquipo(retador);
     }
 
-    public void setRetador(Equipo retador) {
+    public void setRetador(int retador) {
         this.retador = retador;
     }
 
@@ -57,11 +58,11 @@ public class Reto {
         this.fecha = fecha;
     }
 
-    public Cancha getCancha() {
+    public int getCancha() {
         return cancha;
     }
 
-    public void setCancha(Cancha cancha) {
+    public void setCancha(int cancha) {
         this.cancha = cancha;
     }
 

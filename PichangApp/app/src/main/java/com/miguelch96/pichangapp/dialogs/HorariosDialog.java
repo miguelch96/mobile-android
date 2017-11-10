@@ -1,6 +1,5 @@
-package com.miguelch96.pichangapp.dialogs.equipo;
+package com.miguelch96.pichangapp.dialogs;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -16,6 +15,13 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.miguelch96.pichangapp.R;
+import com.miguelch96.pichangapp.dialogs.cancha.ReservaTerminadaDialog;
+import com.miguelch96.pichangapp.dialogs.equipo.ConfirmacionDialog;
+import com.miguelch96.pichangapp.models.Cancha;
+import com.miguelch96.pichangapp.models.Reserva;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Sergio on 17/10/2017.
@@ -25,7 +31,7 @@ public class HorariosDialog extends DialogFragment {
 
     private ListView listHorarios;
     private ImageView backButton;
-    private String[] horarios = {"3pm","4pm","5pm", "6pm", "7pm", "8pm", "9pm", "10pm"};
+    private List<String> horarios;
 
 
     @Override
@@ -37,6 +43,18 @@ public class HorariosDialog extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_horarios, null);
 
         listHorarios = (ListView)view.findViewById(R.id.listviewHorarios);
+        Bundle bundle = getArguments();
+        String dia = bundle.getString("dia");
+        Cancha c =(Cancha) bundle.getSerializable("cancha");
+        horarios = new ArrayList<>();
+
+       for (int i =0; i<c.getReservas().size(); i++){
+           Reserva r = c.getReservas().get(i);
+           if(dia.equalsIgnoreCase(r.getDia())){
+               horarios.add(r.getHoras());
+           }
+       }
+
         ArrayAdapter<String> adaptador = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, horarios);
 
         listHorarios.setAdapter(adaptador);
@@ -47,10 +65,20 @@ public class HorariosDialog extends DialogFragment {
                 String value = (String)adapterView.getItemAtPosition(i);
 
                 Bundle bundle = getArguments();
-                DialogFragment dialog = new ConfirmacionDialog();
+                String v = bundle.getString("object");
+                if(v.equalsIgnoreCase("equipo")){
+                    DialogFragment dialog = new ConfirmacionDialog();
+                    dialog.setArguments(bundle);
+                    dialog.show(getFragmentManager(), "ConfirmacionDialog");
+                }
+               else if(v.equalsIgnoreCase("cancha")){
+                    DialogFragment dialog = new ReservaTerminadaDialog();
+                    dialog.setArguments(bundle);
+                    dialog.show(getFragmentManager(), "ReservaTerminadaDialog");
+                }
 
-                dialog.setArguments(bundle);
-                dialog.show(getFragmentManager(), "ConfirmacionDialog");
+
+
             }
         });
 

@@ -6,9 +6,7 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Miguel on 9/20/2017.
@@ -19,16 +17,20 @@ public class Cancha implements Serializable {
 
     private int id;
     private String nombre;
+    private String descripcion;
     private String distrito;
-    private int score;
-    private Map<String, Double> precios;
+    private double score;
+    private Double precio;
     private String pictureUrl;
     private List<String> pictures;
     private List<Comentario> comentarios;
-    private List<Skill> indicadores;
+    private List<Skill> servicios;
     private String material;
-    private List<String> detalles;
     private String direccion;
+    private List<Reserva> reservas;
+
+    public Cancha() {
+    }
 
 
     public static List<Cancha> from(JSONArray jsonCanchas) {
@@ -46,11 +48,56 @@ public class Cancha implements Serializable {
     public static Cancha from(JSONObject jsonCancha) {
 
         Cancha cancha = new Cancha();
+        List<String> pictures = new ArrayList<>();
+        List<Skill> servicios = new ArrayList<>();
+        List<Comentario> comentarios = new ArrayList<>();
+        List<Reserva> reservas = new ArrayList<>();
+
+
         try {
             cancha.setId(jsonCancha.getInt("canchaId"));
             cancha.setNombre(jsonCancha.getString("nombre"));
-            cancha.setDireccion(jsonCancha.getJSONObject("establecimiento").getString("direccion"));
-            cancha.setMaterial(jsonCancha.getJSONObject("tipoSuperficie").getString("nombre"));
+            cancha.setDireccion(jsonCancha.getString("direccion"));
+            cancha.setMaterial(jsonCancha.getString("nombreTipoSuperficie"));
+            cancha.setDistrito(jsonCancha.getString("nombreDistrito"));
+            cancha.setPictureUrl(jsonCancha.getString("imagenPortadaUrl"));
+            cancha.setScore(jsonCancha.getDouble("calificacion"));
+            cancha.setPrecio(jsonCancha.getDouble("precio"));
+            cancha.setDescripcion(jsonCancha.getString("descripcion"));
+
+            JSONArray jsonPictures= jsonCancha.getJSONArray("imagenes");
+            for (int i = 0; i <jsonPictures.length(); i++)
+            {
+                JSONObject picture = jsonPictures.getJSONObject(i);
+                pictures.add(picture.getString("imagenUrl"));
+            }
+            cancha.setPictures(pictures);
+
+            JSONArray jsonServicios= jsonCancha.getJSONArray("servicios");
+            for (int i = 0; i <jsonServicios.length(); i++)
+            {
+                JSONObject servicio = jsonServicios.getJSONObject(i);
+                servicios.add(new Skill(servicio.getString("nombre"),servicio.getString("imgServicioUrl"),0));
+            }
+            cancha.setServicios(servicios);
+
+            JSONArray jsonComentarios= jsonCancha.getJSONArray("comentarios");
+            for (int i = 0; i <jsonComentarios.length(); i++)
+            {
+                JSONObject comentario = jsonComentarios.getJSONObject(i);
+                comentarios.add(new Comentario(comentario.getString("comentario"), comentario.getDouble("calificacion"),comentario.getString("nombreUsuario"),comentario.getString("imagenPerfilUrl")));
+            }
+            cancha.setComentarios(comentarios);
+
+            JSONArray jsonReservas= jsonCancha.getJSONArray("reservasDisponibles");
+            for (int i = 0; i <jsonReservas.length(); i++)
+            {
+                JSONObject reserva = jsonReservas.getJSONObject(i);
+                reservas.add(new Reserva(reserva.getInt("reservaId"),reserva.getString("fecha"),reserva.getString("horas"),reserva.getString("fechaSolicitud"),reserva.getString("estado"),reserva.getString("dia")));
+            }
+            cancha.setReservas(reservas);
+
+
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
@@ -58,6 +105,14 @@ public class Cancha implements Serializable {
         return cancha;
     }
 
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
     public int getId() {
         return id;
@@ -83,20 +138,20 @@ public class Cancha implements Serializable {
         this.distrito = distrito;
     }
 
-    public int getScore() {
+    public double getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(double score) {
         this.score = score;
     }
 
-    public Map<String, Double> getPrecios() {
-        return precios;
+    public Double getPrecio() {
+        return precio;
     }
 
-    public void setPrecios(Map<String, Double> precios) {
-        this.precios = precios;
+    public void setPrecio(Double precio) {
+        this.precio = precio;
     }
 
     public String getPictureUrl() {
@@ -123,12 +178,12 @@ public class Cancha implements Serializable {
         this.comentarios = comentarios;
     }
 
-    public List<Skill> getIndicadores() {
-        return indicadores;
+    public List<Skill> getServicios() {
+        return servicios;
     }
 
-    public void setIndicadores(List<Skill> indicadores) {
-        this.indicadores = indicadores;
+    public void setServicios(List<Skill> servicios) {
+        this.servicios = servicios;
     }
 
     public String getMaterial() {
@@ -139,14 +194,6 @@ public class Cancha implements Serializable {
         this.material = material;
     }
 
-    public List<String> getDetalles() {
-        return detalles;
-    }
-
-    public void setDetalles(List<String> detalles) {
-        this.detalles = detalles;
-    }
-
     public String getDireccion() {
         return direccion;
     }
@@ -155,9 +202,13 @@ public class Cancha implements Serializable {
         this.direccion = direccion;
     }
 
-    public Cancha() {
+    public List<Reserva> getReservas() {
+        return reservas;
     }
 
+    public void setReservas(List<Reserva> reservas) {
+        this.reservas = reservas;
+    }
 }
 
 
