@@ -45,31 +45,6 @@ public class Equipo implements Serializable {
     public Equipo() {
     }
 
-    public static Equipo findEquipo(int id) {
-        final Equipo[] e = {new Equipo()};
-        AndroidNetworking.get("http://miguelch96-001-site1.itempurl.com/api/equipos/"+ String.valueOf(id))
-                .setPriority(Priority.LOW)
-                .build()
-                .getAsJSONObject(new JSONObjectRequestListener() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-
-                            e[0] =Equipo.from(response.getJSONObject("equipo"));
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onError(ANError anError) {
-                    }
-                });
-        return e[0];
-    }
-
 
     public static Equipo from(JSONObject jsonEquipo) {
 

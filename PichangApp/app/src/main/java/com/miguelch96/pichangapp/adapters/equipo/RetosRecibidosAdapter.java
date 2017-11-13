@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.miguelch96.pichangapp.R;
 import com.miguelch96.pichangapp.activities.CanchaActivity;
 import com.miguelch96.pichangapp.activities.EquipoActivity;
+import com.miguelch96.pichangapp.models.Cancha;
+import com.miguelch96.pichangapp.models.Equipo;
 import com.miguelch96.pichangapp.models.Reto;
 
 import java.util.List;
@@ -26,10 +28,12 @@ public class RetosRecibidosAdapter extends RecyclerView.Adapter<RetosRecibidosAd
 
 
     private List<Reto> retos;
-
+    private List<Equipo> equipos;
+    private List<Cancha> canchas;
     public RetosRecibidosAdapter(List<Reto> retos) {
         this.retos = retos;
     }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView equipoTextView;
@@ -64,7 +68,7 @@ public class RetosRecibidosAdapter extends RecyclerView.Adapter<RetosRecibidosAd
     public void onBindViewHolder(RetosRecibidosAdapter.ViewHolder holder, int position) {
 
         final Reto reto = retos.get(position);
-        holder.equipoTextView.setText("Rival: " + reto.getRetador().getNombre());
+        holder.equipoTextView.setText("Rival: " + String.valueOf(reto.getRetador()));
         holder.fechaTextView.setText("Fecha "+reto.getFecha());
         holder.estadoTextView.setText("Estado: "+reto.getEstado());
         holder.equipoButton.setOnClickListener(new View.OnClickListener() {
@@ -72,8 +76,14 @@ public class RetosRecibidosAdapter extends RecyclerView.Adapter<RetosRecibidosAd
             public void onClick(View view) {
                 Intent itemIntent = new Intent(view.getContext(), EquipoActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("equipo", reto.getRetador());
+                for (int i = 0; i<equipos.size(); i++){
 
+                    Equipo e = equipos.get(i);
+                    if(e.getEquipoId()==reto.getRetador()){
+                        bundle.putSerializable("equipo", e);
+                        break;
+                    }
+                }
                 itemIntent.putExtras(bundle);
                 view.getContext().startActivity(itemIntent);
             }
@@ -84,7 +94,15 @@ public class RetosRecibidosAdapter extends RecyclerView.Adapter<RetosRecibidosAd
                 Context context = view.getContext();
                 Intent intent=new Intent(context, CanchaActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("cancha", reto.getCancha());
+                for (int i = 0; i<canchas.size(); i++){
+
+                    Cancha c = canchas.get(i);
+                    if(c.getId()==reto.getCancha()){
+                        bundle.putSerializable("cancha", c);
+                        break;
+                    }
+                }
+                intent.putExtras(bundle);
                 context.startActivity(intent);
             }
         });
@@ -95,5 +113,27 @@ public class RetosRecibidosAdapter extends RecyclerView.Adapter<RetosRecibidosAd
         return retos.size();
     }
 
+    public List<Reto> getRetos() {
+        return retos;
+    }
 
+    public void setRetos(List<Reto> retos) {
+        this.retos = retos;
+    }
+
+    public List<Equipo> getEquipos() {
+        return equipos;
+    }
+
+    public void setEquipos(List<Equipo> equipos) {
+        this.equipos = equipos;
+    }
+
+    public List<Cancha> getCanchas() {
+        return canchas;
+    }
+
+    public void setCanchas(List<Cancha> canchas) {
+        this.canchas = canchas;
+    }
 }

@@ -36,16 +36,16 @@ public class Reto implements Serializable {
         this.id = id;
     }
 
-    public Equipo getRetado() {
-        return Equipo.findEquipo(retado);
+    public int getRetado() {
+        return retado;
     }
 
     public void setRetado(int retado) {
         this.retado = retado;
     }
 
-    public Equipo getRetador() {
-        return Equipo.findEquipo(retador);
+    public int getRetador() {
+        return retador;
     }
 
     public void setRetador(int retador) {

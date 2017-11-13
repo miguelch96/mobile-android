@@ -18,11 +18,14 @@ import java.io.Serializable;
 
 public class Session implements Serializable {
 
+private Equipo equipo;
 
+    public Session() {
+    }
 
-    public static Equipo getSession() {
+    public  Equipo getSession() {
+equipo = new Equipo();
 
-        final Equipo[] session = new Equipo[1];
         AndroidNetworking.get("http://miguelch96-001-site1.itempurl.com/api/equipos/1")
                 .setPriority(Priority.LOW)
                 .build()
@@ -31,7 +34,7 @@ public class Session implements Serializable {
                     public void onResponse(JSONObject response) {
                         try {
 
-                            session[0] = Equipo.from(response.getJSONObject("equipo"));
+                          equipo = Equipo.from(response.getJSONObject("equipo"));
 
 
                         } catch (JSONException e) {
@@ -43,6 +46,6 @@ public class Session implements Serializable {
                     public void onError(ANError anError) {
                     }
                 });
-        return session[0];
+        return equipo;
     }
 }
