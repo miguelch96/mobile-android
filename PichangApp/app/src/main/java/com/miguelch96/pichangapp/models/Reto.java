@@ -9,21 +9,24 @@ import java.io.Serializable;
 public class Reto implements Serializable {
 
     private int id;
-    private int retado;
-    private int retador;
+    private int retadoId;
+    private int retadorId;
     private String fecha;
-    private int cancha;
+    private int canchaId;
     private String estado;
+    private String nombreRival;
+    private String nombreCancha;
 
-    public Reto(int id, int retado, int retador, String fecha, int cancha, String estado) {
+    public Reto(int id, int retado, int retador, String fecha, int cancha, String estado, String nombreRival, String nombreCancha) {
         this.id = id;
-        this.retado = retado;
-        this.retador = retador;
+        this.retadoId = retado;
+        this.retadorId = retador;
         this.fecha = fecha;
-        this.cancha = cancha;
+        this.canchaId = cancha;
         this.estado = estado;
+        this.nombreRival = nombreRival;
+        this.nombreCancha = nombreCancha;
     }
-
 
     public Reto() {
     }
@@ -36,20 +39,20 @@ public class Reto implements Serializable {
         this.id = id;
     }
 
-    public int getRetado() {
-        return retado;
+    public int getRetadoId() {
+        return retadoId;
     }
 
-    public void setRetado(int retado) {
-        this.retado = retado;
+    public void setRetadoId(int retadoId) {
+        this.retadoId = retadoId;
     }
 
-    public int getRetador() {
-        return retador;
+    public int getRetadorId() {
+        return retadorId;
     }
 
-    public void setRetador(int retador) {
-        this.retador = retador;
+    public void setRetadorId(int retadorId) {
+        this.retadorId = retadorId;
     }
 
     public String getFecha() {
@@ -60,12 +63,12 @@ public class Reto implements Serializable {
         this.fecha = fecha;
     }
 
-    public int getCancha() {
-        return cancha;
+    public int getCanchaId() {
+        return canchaId;
     }
 
-    public void setCancha(int cancha) {
-        this.cancha = cancha;
+    public void setCanchaId(int canchaId) {
+        this.canchaId = canchaId;
     }
 
     public String getEstado() {
@@ -74,5 +77,21 @@ public class Reto implements Serializable {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getNombreRival() {
+        return nombreRival;
+    }
+
+    public void setNombreRival(String nombreRival) {
+        this.nombreRival = nombreRival;
+    }
+
+    public String getNombreCancha() {
+        return nombreCancha;
+    }
+
+    public void setNombreCancha(String nombreCancha) {
+        this.nombreCancha = nombreCancha;
     }
 }

@@ -1,4 +1,4 @@
-package com.miguelch96.pichangapp.fragments.equipo.retos;
+package com.miguelch96.pichangapp.fragments.equipo;
 
 
 import android.os.Bundle;
@@ -15,7 +15,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.miguelch96.pichangapp.R;
-import com.miguelch96.pichangapp.adapters.equipo.RetosRecibidosAdapter;
+import com.miguelch96.pichangapp.adapters.equipo.RetosEnviadosAdapter;
 import com.miguelch96.pichangapp.models.Cancha;
 import com.miguelch96.pichangapp.models.Equipo;
 import com.miguelch96.pichangapp.models.Reto;
@@ -31,19 +31,16 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RetosRecibidosFragment extends Fragment {
+public class RetosEnviadosFragment extends Fragment {
 
-    private RecyclerView recibidosRecyclerView;
-    private RetosRecibidosAdapter recibidosAdapter;
-    private RecyclerView.LayoutManager recibidosLayoutManager;
+    private RecyclerView enviadosRecyclerView;
+    private RetosEnviadosAdapter enviadosAdapter;
+    private RecyclerView.LayoutManager enviadosLayoutManager;
     private List<Reto> retos;
 
-
-
-    public RetosRecibidosFragment() {
+    public RetosEnviadosFragment() {
         // Required empty public constructor
     }
-
     public void updateData() {
         AndroidNetworking.get("http://miguelch96-001-site1.itempurl.com/api/equipos/1")
                 .setPriority(Priority.LOW)
@@ -54,9 +51,9 @@ public class RetosRecibidosFragment extends Fragment {
                     public void onResponse(JSONObject response) {
                         try {
 
-                            retos = Equipo.from(response.getJSONObject("equipo")).getRetosRecibidos();
-                            recibidosAdapter.setRetos(retos);
-                            recibidosAdapter.notifyDataSetChanged();
+                            retos = Equipo.from(response.getJSONObject("equipo")).getRetosEnviados();
+                            enviadosAdapter.setRetos(retos);
+                            enviadosAdapter.notifyDataSetChanged();
 
 
                         } catch (JSONException e) {
@@ -81,7 +78,7 @@ public class RetosRecibidosFragment extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            recibidosAdapter.setEquipos(Equipo.from(response.getJSONArray("equipos")));
+                            enviadosAdapter.setEquipos(Equipo.from(response.getJSONArray("equipos")));
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -104,7 +101,7 @@ public class RetosRecibidosFragment extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            recibidosAdapter.setCanchas(Cancha.from(response.getJSONArray("canchas")));
+                            enviadosAdapter.setCanchas(Cancha.from(response.getJSONArray("canchas")));
 
 
 
@@ -121,22 +118,23 @@ public class RetosRecibidosFragment extends Fragment {
                 });
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_retos_recibidos,container,false);
+        View view=inflater.inflate(R.layout.fragment_retos_enviados,container,false);
         retos = new ArrayList<>();
+
         updateCanchas();
         updateEquipos();
         updateData();
+        enviadosAdapter =new RetosEnviadosAdapter(retos);
 
-        recibidosAdapter =new RetosRecibidosAdapter(retos);
+        enviadosLayoutManager=new LinearLayoutManager(view.getContext(),LinearLayoutManager.VERTICAL,false);
 
-        recibidosLayoutManager=new LinearLayoutManager(view.getContext(),LinearLayoutManager.VERTICAL,false);
-
-        recibidosRecyclerView =view.findViewById(R.id.recibidosRecyclerView);
-        recibidosRecyclerView.setAdapter(recibidosAdapter);
-        recibidosRecyclerView.setLayoutManager(recibidosLayoutManager);
+        enviadosRecyclerView =view.findViewById(R.id.enviadosRecyclerView);
+        enviadosRecyclerView.setAdapter(enviadosAdapter);
+        enviadosRecyclerView.setLayoutManager(enviadosLayoutManager);
         return  view;
     }
 

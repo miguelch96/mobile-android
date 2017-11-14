@@ -30,6 +30,7 @@ public class Equipo implements Serializable {
     private String nombre;
     private List<Reto> retosEnviados;
     private List<Reto> retosRecibidos;
+    private List<Reto> retosAceptados;
 
     //falta en el api
     private String distrito;
@@ -54,6 +55,7 @@ public class Equipo implements Serializable {
         List<Skill> skills = new ArrayList<>();
         List<Reto> retEnviados = new ArrayList<>();
         List<Reto> retRecibidos = new ArrayList<>();
+        List<Reto> retAceptados = new ArrayList<>();
 
         Equipo equipo = new Equipo();
         try {
@@ -97,17 +99,27 @@ public class Equipo implements Serializable {
             for (int i = 0; i <enviados.length(); i++)
             {
                 JSONObject e = enviados.getJSONObject(i);
-                retEnviados.add(new Reto(e.getInt("retoId"),e.getInt("equipoRetadoId"),e.getInt("equipoRetadorId"),e.getString("fechaEncuentro"),e.getInt("canchaId"),e.getString("estado")));
-            }
+                if(e.getString("estado").equalsIgnoreCase("aceptado")) {
+                    retAceptados.add(new Reto(e.getInt("retoId"),e.getInt("equipoRetadoId"),e.getInt("equipoRetadorId"),e.getString("fechaEncuentro"),e.getInt("canchaId"),e.getString("estado"),e.getString("equipoRetado"),e.getString("cancha")));
+                }
+                else if(e.getString("estado").equalsIgnoreCase("pendiente")){
+                    retEnviados.add(new Reto(e.getInt("retoId"),e.getInt("equipoRetadoId"),e.getInt("equipoRetadorId"),e.getString("fechaEncuentro"),e.getInt("canchaId"),e.getString("estado"),e.getString("equipoRetado"),e.getString("cancha")));
+                }
+                 }
 
             JSONArray recibidos = jsonRetos.getJSONArray("recibidos");
             for (int i = 0; i <recibidos.length(); i++)
             {
                 JSONObject e = recibidos.getJSONObject(i);
-                retRecibidos.add(new Reto(e.getInt("retoId"),e.getInt("equipoRetadoId"),e.getInt("equipoRetadorId"),e.getString("fechaEncuentro"),e.getInt("canchaId"),e.getString("estado")));
+                if(e.getString("estado").equalsIgnoreCase("aceptado")) {
+                    retAceptados.add(new Reto(e.getInt("retoId"),e.getInt("equipoRetadoId"),e.getInt("equipoRetadorId"),e.getString("fechaEncuentro"),e.getInt("canchaId"),e.getString("estado"),e.getString("equipoRetado"),e.getString("cancha")));
+                }
+                else if(e.getString("estado").equalsIgnoreCase("pendiente")){
+                    retRecibidos.add(new Reto(e.getInt("retoId"),e.getInt("equipoRetadoId"),e.getInt("equipoRetadorId"),e.getString("fechaEncuentro"),e.getInt("canchaId"),e.getString("estado"),e.getString("equipoRetado"),e.getString("cancha")));
+                }
             }
 
-
+            equipo.setRetosAceptados(retAceptados);
             equipo.setRetosEnviados(retEnviados);
             equipo.setRetosRecibidos(retRecibidos);
             equipo.setIntegrantes(miembros);
@@ -201,6 +213,13 @@ public class Equipo implements Serializable {
         this.comentarios = comentarios;
     }
 
+    public List<Reto> getRetosAceptados() {
+        return retosAceptados;
+    }
+
+    public void setRetosAceptados(List<Reto> retosAceptados) {
+        this.retosAceptados = retosAceptados;
+    }
 
     public List<Skill> getSkills() {
         return skills;

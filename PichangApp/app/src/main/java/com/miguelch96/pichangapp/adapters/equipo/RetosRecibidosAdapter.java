@@ -68,7 +68,7 @@ public class RetosRecibidosAdapter extends RecyclerView.Adapter<RetosRecibidosAd
     public void onBindViewHolder(RetosRecibidosAdapter.ViewHolder holder, int position) {
 
         final Reto reto = retos.get(position);
-        holder.equipoTextView.setText("Rival: " + String.valueOf(reto.getRetador()));
+        holder.equipoTextView.setText("Rival: " + String.valueOf(reto.getRetadorId()));
         holder.fechaTextView.setText("Fecha "+reto.getFecha());
         holder.estadoTextView.setText("Estado: "+reto.getEstado());
         holder.equipoButton.setOnClickListener(new View.OnClickListener() {
@@ -79,7 +79,7 @@ public class RetosRecibidosAdapter extends RecyclerView.Adapter<RetosRecibidosAd
                 for (int i = 0; i<equipos.size(); i++){
 
                     Equipo e = equipos.get(i);
-                    if(e.getEquipoId()==reto.getRetador()){
+                    if(e.getEquipoId()==reto.getRetadorId()){
                         bundle.putSerializable("equipo", e);
                         break;
                     }
@@ -97,7 +97,7 @@ public class RetosRecibidosAdapter extends RecyclerView.Adapter<RetosRecibidosAd
                 for (int i = 0; i<canchas.size(); i++){
 
                     Cancha c = canchas.get(i);
-                    if(c.getId()==reto.getCancha()){
+                    if(c.getId()==reto.getCanchaId()){
                         bundle.putSerializable("cancha", c);
                         break;
                     }

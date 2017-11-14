@@ -1,9 +1,10 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.miguelch96.pichangapp.fragments.equipo.retos.RetosEnviadosFragment">
+    tools:context="com.miguelch96.pichangapp.fragments.equipo.RetosEnviadosFragment">
 
     <!-- TODO: Update blank fragment layout -->
 

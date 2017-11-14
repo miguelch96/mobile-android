@@ -9,16 +9,28 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.miguelch96.pichangapp.R;
 import com.miguelch96.pichangapp.models.Equipo;
+import com.miguelch96.pichangapp.models.Reserva;
+import com.miguelch96.pichangapp.models.Reto;
 import com.miguelch96.pichangapp.repositories.EquipoRepository;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,55 +38,74 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ReservasEquipoFragment extends ListFragment {
+public class ReservasEquipoFragment extends Fragment {
 
     private ListView listView;
+    private List<Reto> lista;
+    private ItemEquipoAdapter adapter;
 
-    public class ItemEquipoAdapter extends ArrayAdapter<Equipo>
+
+    public class ItemEquipoAdapter extends BaseAdapter
     {
+        Context context;
+        private List<Reto> retos;
 
-        private List<Equipo> items;
-        private EquipoViewHolder equipoHolder;
-        private Context context;
-
-
-        private class EquipoViewHolder
-        {
-            TextView rivalTextView;
-            TextView canchaTextView;
-            TextView fechaTextView;
-        }
-        public ItemEquipoAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<Equipo> objects) {
-            super(context, resource, objects);
-            this.items = objects;
-            this.context=context;
+        public ItemEquipoAdapter(Context context, List<Reto> retos) {
+            this.context = context;
+            this.retos = retos;
         }
 
-        @NonNull
         @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            View v = convertView;
-            if (v == null) {
-                LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-                v = inflater.inflate(R.layout.item_list_reserva_equipo, parent, false);
-                equipoHolder = new EquipoViewHolder();
-                equipoHolder.rivalTextView = (TextView)v.findViewById(R.id.rivalTextView);
-                equipoHolder.canchaTextView = (TextView)v.findViewById(R.id.canchaTextView);
-                equipoHolder.fechaTextView = (TextView)v.findViewById(R.id.fechaTextView);
-                v.setTag(equipoHolder);
-            } else equipoHolder = (EquipoViewHolder) v.getTag();
+        public int getCount() {
+            return retos.size();
+        }
 
-            Equipo e = items.get(position);
+        @Override
+        public Object getItem(int i) {
+            return retos.get(i);
+        }
 
-            if (e != null) {
-                equipoHolder.rivalTextView.setText("Rival: "+e.getNombre());
-                equipoHolder.canchaTextView.setText("Cancha: "+"Matamula");
-                equipoHolder.fechaTextView.setText("Fecha: "+"08/09/18 - 10pm");
+        @Override
+        public long getItemId(int i) {
+            return i;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                convertView = LayoutInflater.from(context).
+                        inflate(R.layout.item_list_reserva_equipo, parent, false);
             }
 
-            return v;
+            // get current item to be displayed
+            Reto currentItem = (Reto) getItem(position);
+
+            // get the TextView for item name and item description
+            TextView rivalTextView = (TextView)
+                    convertView.findViewById(R.id.rivalTextView);
+            TextView canchaTextView = (TextView)
+                    convertView.findViewById(R.id.canchaTextView);
+            TextView fechaTextView = (TextView)
+                    convertView.findViewById(R.id.fechaTextView);
+
+            //sets the text for item name and item description from the current item object
+            rivalTextView.setText("Rival: " + currentItem.getNombreRival());
+            canchaTextView.setText("Cancha: " + currentItem.getNombreCancha());
+            fechaTextView.setText("Fecha: " + currentItem.getFecha());
+
+            // returns the view for the current row
+            return convertView;
+        }
+
+        public List<Reto> getRetos() {
+            return retos;
+        }
+
+        public void setRetos(List<Reto> retos) {
+            this.retos = retos;
         }
     }
+
 
 
     public ReservasEquipoFragment() {
@@ -87,23 +118,47 @@ public class ReservasEquipoFragment extends ListFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_reservas_equipo, container, false);
+        List<Reto> p = new ArrayList<>();
+        p.add(new Reto(0,1,2,"fecha", 1,"aceptado","rival", "cancha"));
+        p.add(new Reto(0,1,2,"fecha", 1,"aceptado","rival", "cancha"));
+        p.add(new Reto(0,1,2,"fecha", 1,"aceptado","rival", "cancha"));
+        lista= new ArrayList<>();
+        updateData();
+        adapter = new ItemEquipoAdapter(getActivity(), lista);
+        listView =(ListView) view.findViewById(R.id.listReservas);
 
 
-        listView = view.findViewById(R.id.listEquipos);
+        listView.setAdapter(adapter);
+
 
         return view ;
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-       super.onActivityCreated(savedInstanceState);
-       List<Equipo> lista = EquipoRepository.getEquipos();
 
-        ItemEquipoAdapter adapter = new ItemEquipoAdapter(getActivity(),
-                R.layout.item_list_reserva_equipo, lista);
+    public void updateData() {
+        AndroidNetworking.get("http://miguelch96-001-site1.itempurl.com/api/equipos/1")
+                .setPriority(Priority.LOW)
+                .setTag(getString(R.string.app_name))
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
 
-        /** Setting the array adapter to the list view */
-       listView.setAdapter(adapter);
-       // setListAdapter(adapter);
+                            lista = Equipo.from(response.getJSONObject("equipo")).getRetosAceptados();
+                            adapter.setRetos(lista);
+                            adapter.notifyDataSetChanged();
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        Log.d(getString(R.string.app_name), anError.getLocalizedMessage());
+
+                    }
+                });
     }
 }

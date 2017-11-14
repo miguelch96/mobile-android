@@ -4,11 +4,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.miguelch96.pichangapp.adapters.equipo.RetosRecibidosAdapter;
 import com.miguelch96.pichangapp.fragments.cancha.ReservasCanchaFragment;
 import com.miguelch96.pichangapp.fragments.equipo.ReservasEquipoFragment;
-import com.miguelch96.pichangapp.fragments.equipo.retos.RetosEnviadosFragment;
-import com.miguelch96.pichangapp.fragments.equipo.retos.RetosRecibidosFragment;
+import com.miguelch96.pichangapp.fragments.equipo.RetosEnviadosFragment;
+import com.miguelch96.pichangapp.fragments.equipo.RetosRecibidosFragment;
 
 /**
  * Created by Sergio on 17/10/2017.

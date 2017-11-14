@@ -5,8 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.miguelch96.pichangapp.fragments.equipo.EquipoFavoritesFragment;
-import com.miguelch96.pichangapp.fragments.equipo.retos.RetosEnviadosFragment;
-import com.miguelch96.pichangapp.fragments.equipo.retos.RetosRecibidosFragment;
+import com.miguelch96.pichangapp.fragments.equipo.RetosEnviadosFragment;
 
 /**
  * Created by Sergio on 19/10/2017.
