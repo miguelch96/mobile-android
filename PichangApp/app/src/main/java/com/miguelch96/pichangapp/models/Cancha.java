@@ -32,6 +32,21 @@ public class Cancha implements Serializable {
     public Cancha() {
     }
 
+    public static List<Cancha> fromFavorite(JSONArray jsonCanchas) {
+        List<Cancha> canchas = new ArrayList<>();
+        for (int i = 0; i < jsonCanchas.length(); i++) {
+            try {
+                String id = jsonCanchas.getJSONObject(i).getString("canchaId");
+                if(!Cfavorite.find(Cfavorite.class, "cancha_id = ?", id).isEmpty())
+                {
+                    canchas.add(from(jsonCanchas.getJSONObject(i)));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return canchas;
+    }
 
     public static List<Cancha> from(JSONArray jsonCanchas) {
         List<Cancha> canchas = new ArrayList<>();

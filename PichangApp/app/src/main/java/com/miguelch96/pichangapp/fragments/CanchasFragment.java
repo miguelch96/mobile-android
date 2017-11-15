@@ -31,6 +31,8 @@ import java.util.List;
 public class CanchasFragment extends Fragment {
 
     private RecyclerView canchasRecyclerView;
+    private RecyclerView canchas1RecyclerView;
+    private RecyclerView canchas2RecyclerView;
     private CanchaAdapter canchaAdapter;
     private RecyclerView.LayoutManager canchasLayoutManager;
     private List<Cancha> canchas;
@@ -82,6 +84,14 @@ public class CanchasFragment extends Fragment {
         canchasRecyclerView=view.findViewById(R.id.canchasRecyclerView);
         canchasRecyclerView.setAdapter(canchaAdapter);
         canchasRecyclerView.setLayoutManager(canchasLayoutManager);
+
+        canchas1RecyclerView=view.findViewById(R.id.canchas1RecyclerView);
+        canchas1RecyclerView.setAdapter(canchaAdapter);
+        canchas1RecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext(),LinearLayoutManager.HORIZONTAL,false));
+
+        canchas2RecyclerView=view.findViewById(R.id.canchas2RecyclerView);
+        canchas2RecyclerView.setAdapter(canchaAdapter);
+        canchas2RecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext(),LinearLayoutManager.HORIZONTAL,false));
 
         return view;
     }

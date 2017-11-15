@@ -36,7 +36,7 @@ public class IntegrantesDialog extends DialogFragment {
         Bundle bundle = getArguments();
         Equipo equipo =(Equipo) bundle.getSerializable("equipo");
 
-        //testTextView = (TextView) view.findViewById(R.id.testTextView);
+        //testTextView = (TextView) view.findViewById(R.equipoId.testTextView);
         integrantesAdapter =new IntegrantesAdapter(equipo.getIntegrantes());
 
         integrantesLayoutManager=new LinearLayoutManager(view.getContext(),LinearLayoutManager.VERTICAL,false);

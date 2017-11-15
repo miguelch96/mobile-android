@@ -1,10 +1,9 @@
-package com.miguelch96.pichangapp.fragments.equipo;
+package com.miguelch96.pichangapp.fragments.cancha;
 
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,37 +15,31 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.miguelch96.pichangapp.R;
-import com.miguelch96.pichangapp.adapters.equipo.EquipoAdapter;
-import com.miguelch96.pichangapp.fragments.EquiposFragment;
-import com.miguelch96.pichangapp.models.Equipo;
-import com.miguelch96.pichangapp.models.Favorite;
-import com.miguelch96.pichangapp.repositories.EquipoRepository;
+import com.miguelch96.pichangapp.adapters.cancha.CanchaAdapter;
+import com.miguelch96.pichangapp.models.Cancha;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EquipoFavoritesFragment extends Fragment {
+public class CanchaFavoritesFragment extends Fragment {
 
-    private List<Equipo> favorites;
+    private List<Cancha> favorites;
     private RecyclerView favoritesRecyclerView;
-    private EquipoAdapter favoriteAdapter;
+    private CanchaAdapter favoriteAdapter;
     private RecyclerView.LayoutManager favoriteLayoutManager;
 
-
-    public EquipoFavoritesFragment() {
+    public CanchaFavoritesFragment() {
         // Required empty public constructor
     }
 
     public void updateData() {
-        AndroidNetworking.get("http://miguelch96-001-site1.itempurl.com/api/equipos")
+        AndroidNetworking.get("http://miguelch96-001-site1.itempurl.com/api/canchas")
                 .setPriority(Priority.LOW)
                 .setTag(getString(R.string.app_name))
                 .build()
@@ -55,8 +48,8 @@ public class EquipoFavoritesFragment extends Fragment {
                     public void onResponse(JSONObject response) {
                         try {
 
-                            favorites = Equipo.fromFavorites(response.getJSONArray("equipos"));
-                            favoriteAdapter.setEquipos(favorites);
+                            favorites = Cancha.fromFavorite(response.getJSONArray("canchas"));
+                            favoriteAdapter.setCanchas(favorites);
                             favoriteAdapter.notifyDataSetChanged();
 
 
@@ -77,10 +70,10 @@ public class EquipoFavoritesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_equipo_favorites,container,false);
+        View view=inflater.inflate(R.layout.fragment_cancha_favorites,container,false);
         favorites=new ArrayList<>();
         updateData();
-        favoriteAdapter =new EquipoAdapter(favorites);
+        favoriteAdapter =new CanchaAdapter(favorites);
 
         favoriteLayoutManager=new GridLayoutManager(view.getContext(), 2);
 

@@ -68,54 +68,46 @@ public class Equipo implements Serializable {
 
 
             JSONArray jsonMiembros = jsonEquipo.getJSONArray("miembros");
-            for (int i = 0; i <jsonMiembros.length(); i++)
-            {
+            for (int i = 0; i < jsonMiembros.length(); i++) {
                 JSONObject miembro = jsonMiembros.getJSONObject(i);
-                miembros.put(miembro.getString("nombre") +" "+ miembro.getString("apellido"),miembro.getString("imagenPerfilUrl"));
+                miembros.put(miembro.getString("nombre") + " " + miembro.getString("apellido"), miembro.getString("imagenPerfilUrl"));
             }
 
             JSONArray jsonComents = jsonEquipo.getJSONArray("comentarios");
-            for (int i = 0; i <jsonComents.length(); i++)
-            {
+            for (int i = 0; i < jsonComents.length(); i++) {
                 JSONObject coment = jsonComents.getJSONObject(i);
-                coments.add(new Comentario(coment.getString("comentario") ,coment.getDouble("calificacion"),coment.getString("nombreUsuario"),coment.getString("imagenPerfilUrl")));
+                coments.add(new Comentario(coment.getString("comentario"), coment.getDouble("calificacion"), coment.getString("nombreUsuario"), coment.getString("imagenPerfilUrl")));
             }
-            JSONArray jsonPictures= jsonEquipo.getJSONArray("imagenes");
-            for (int i = 0; i <jsonPictures.length(); i++)
-            {
+            JSONArray jsonPictures = jsonEquipo.getJSONArray("imagenes");
+            for (int i = 0; i < jsonPictures.length(); i++) {
                 JSONObject picture = jsonPictures.getJSONObject(i);
                 pictures.add(picture.getString("imagenUrl"));
             }
 
-            JSONArray jsonSkills= jsonEquipo.getJSONArray("skills");
-            for (int i = 0; i <jsonSkills.length(); i++)
-            {
+            JSONArray jsonSkills = jsonEquipo.getJSONArray("skills");
+            for (int i = 0; i < jsonSkills.length(); i++) {
                 JSONObject skill = jsonSkills.getJSONObject(i);
-                skills.add(new Skill(skill.getString("nombre"), skill.getString("imagenSkillUrl"),skill.getInt("cantidad")));
+                skills.add(new Skill(skill.getString("nombre"), skill.getString("imagenSkillUrl"), skill.getInt("cantidad")));
             }
 
-            JSONObject jsonRetos= jsonEquipo.getJSONObject("retos");
+            JSONObject jsonRetos = jsonEquipo.getJSONObject("retos");
             JSONArray enviados = jsonRetos.getJSONArray("enviados");
-            for (int i = 0; i <enviados.length(); i++)
-            {
+            for (int i = 0; i < enviados.length(); i++) {
                 JSONObject e = enviados.getJSONObject(i);
-                if(e.getString("estado").equalsIgnoreCase("aceptado")) {
-                    retAceptados.add(new Reto(e.getInt("retoId"),e.getInt("equipoRetadoId"),e.getInt("equipoRetadorId"),e.getString("fechaEncuentro"),e.getInt("canchaId"),e.getString("estado"),e.getString("equipoRetado"),e.getString("cancha")));
+                if (e.getString("estado").equalsIgnoreCase("aceptado")) {
+                    retAceptados.add(new Reto(e.getInt("retoId"), e.getInt("equipoRetadoId"), e.getInt("equipoRetadorId"), e.getString("fechaEncuentro"), e.getInt("canchaId"), e.getString("estado"), e.getString("equipoRetado"), e.getString("cancha")));
+                } else if (e.getString("estado").equalsIgnoreCase("pendiente")) {
+                    retEnviados.add(new Reto(e.getInt("retoId"), e.getInt("equipoRetadoId"), e.getInt("equipoRetadorId"), e.getString("fechaEncuentro"), e.getInt("canchaId"), e.getString("estado"), e.getString("equipoRetado"), e.getString("cancha")));
                 }
-                else if(e.getString("estado").equalsIgnoreCase("pendiente")){
-                    retEnviados.add(new Reto(e.getInt("retoId"),e.getInt("equipoRetadoId"),e.getInt("equipoRetadorId"),e.getString("fechaEncuentro"),e.getInt("canchaId"),e.getString("estado"),e.getString("equipoRetado"),e.getString("cancha")));
-                }
-                 }
+            }
 
             JSONArray recibidos = jsonRetos.getJSONArray("recibidos");
-            for (int i = 0; i <recibidos.length(); i++)
-            {
+            for (int i = 0; i < recibidos.length(); i++) {
                 JSONObject e = recibidos.getJSONObject(i);
-                if(e.getString("estado").equalsIgnoreCase("aceptado")) {
-                    retAceptados.add(new Reto(e.getInt("retoId"),e.getInt("equipoRetadoId"),e.getInt("equipoRetadorId"),e.getString("fechaEncuentro"),e.getInt("canchaId"),e.getString("estado"),e.getString("equipoRetado"),e.getString("cancha")));
-                }
-                else if(e.getString("estado").equalsIgnoreCase("pendiente")){
-                    retRecibidos.add(new Reto(e.getInt("retoId"),e.getInt("equipoRetadoId"),e.getInt("equipoRetadorId"),e.getString("fechaEncuentro"),e.getInt("canchaId"),e.getString("estado"),e.getString("equipoRetado"),e.getString("cancha")));
+                if (e.getString("estado").equalsIgnoreCase("aceptado")) {
+                    retAceptados.add(new Reto(e.getInt("retoId"), e.getInt("equipoRetadoId"), e.getInt("equipoRetadorId"), e.getString("fechaEncuentro"), e.getInt("canchaId"), e.getString("estado"), e.getString("equipoRetado"), e.getString("cancha")));
+                } else if (e.getString("estado").equalsIgnoreCase("pendiente")) {
+                    retRecibidos.add(new Reto(e.getInt("retoId"), e.getInt("equipoRetadoId"), e.getInt("equipoRetadorId"), e.getString("fechaEncuentro"), e.getInt("canchaId"), e.getString("estado"), e.getString("equipoRetado"), e.getString("cancha")));
                 }
             }
 
@@ -141,6 +133,23 @@ public class Equipo implements Serializable {
         for (int i = 0; i < jsonEquipos.length(); i++) {
             try {
                 equipos.add(from(jsonEquipos.getJSONObject(i)));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return equipos;
+    }
+
+    public static List<Equipo> fromFavorites(JSONArray jsonEquipos) {
+        List<Equipo> equipos = new ArrayList<>();
+        for (int i = 0; i < jsonEquipos.length(); i++) {
+            try {
+                String id = jsonEquipos.getJSONObject(i).getString("equipoId");
+                if(!Favorite.find(Favorite.class, "equipo_id = ?", id).isEmpty())
+                {
+                    equipos.add(from(jsonEquipos.getJSONObject(i)));
+                }
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }

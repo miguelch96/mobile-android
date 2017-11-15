@@ -82,6 +82,7 @@ public class RetosRecibidosFragment extends Fragment {
                     public void onResponse(JSONObject response) {
                         try {
                             recibidosAdapter.setEquipos(Equipo.from(response.getJSONArray("equipos")));
+                            recibidosAdapter.notifyDataSetChanged();
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -105,6 +106,7 @@ public class RetosRecibidosFragment extends Fragment {
                     public void onResponse(JSONObject response) {
                         try {
                             recibidosAdapter.setCanchas(Cancha.from(response.getJSONArray("canchas")));
+                            recibidosAdapter.notifyDataSetChanged();
 
 
 

@@ -4,6 +4,7 @@ import android.app.DialogFragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,12 +18,13 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.miguelch96.pichangapp.R;
-import com.miguelch96.pichangapp.adapters.equipo.PictureAdapter;
-import com.miguelch96.pichangapp.adapters.equipo.SkillAdapter;
+import com.miguelch96.pichangapp.adapters.PictureAdapter;
+import com.miguelch96.pichangapp.adapters.SkillAdapter;
 import com.miguelch96.pichangapp.dialogs.DiasDialog;
 import com.miguelch96.pichangapp.dialogs.ScoresDialog;
 import com.miguelch96.pichangapp.dialogs.cancha.InfoDialog;
 import com.miguelch96.pichangapp.models.Cancha;
+import com.miguelch96.pichangapp.models.Cfavorite;
 
 public class CanchaActivity extends AppCompatActivity {
 
@@ -50,8 +52,11 @@ public class CanchaActivity extends AppCompatActivity {
         inflater.inflate(R.menu.toolbar, menu);
         this.menu = menu;
         Bundle bundle = getIntent().getExtras();
-        Cancha equipo = (Cancha) bundle.getSerializable("cancha");
+        Cancha cancha = (Cancha) bundle.getSerializable("cancha");
 
+        if(!Cfavorite.find(Cfavorite.class,"cancha_id = ?",String.valueOf(cancha.getId())).isEmpty()){
+            menu.getItem(0).setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite_orange_48dp));
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -59,9 +64,29 @@ public class CanchaActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         Bundle bundle = getIntent().getExtras();
-        Cancha equipo = (Cancha) bundle.getSerializable("cancha");
+        Cancha cancha = (Cancha) bundle.getSerializable("cancha");
 
         switch (item.getItemId()) {
+            case R.id.action_favorite:
+
+                DialogFragment dialog = new InfoDialog();
+
+                if(Cfavorite.find(Cfavorite.class,"cancha_id = ?",String.valueOf(cancha.getId())).isEmpty()){
+                    Cfavorite f = new Cfavorite(cancha.getId());
+                    f.save();
+                    menu.getItem(0).setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite_orange_48dp));
+                    bundle.putString("message", "Cancha agregada a favoritos.");
+                    dialog.setArguments(bundle);
+                    dialog.show(getFragmentManager(), "InfoDialog");
+                }
+                else {
+                    Cfavorite f =Cfavorite.find(Cfavorite.class,"cancha_id = ?",String.valueOf(cancha.getId())).get(0);
+                    menu.getItem(0).setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite_white_48dp));
+                    f.delete();
+                    bundle.putString("message", "Cancha eliminada de favoritos.");
+                    dialog.setArguments(bundle);
+                    dialog.show(getFragmentManager(), "InfoDialog");
+                }
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -138,6 +163,7 @@ public class CanchaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Bundle bundle = getIntent().getExtras();
+                bundle.putString("message", cancha.getDescripcion());
                 DialogFragment dialog = new InfoDialog();
                 dialog.setArguments(bundle);
                 dialog.show(getFragmentManager(), "InfoDialog");

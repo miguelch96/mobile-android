@@ -1,4 +1,4 @@
-package com.miguelch96.pichangapp.adapters.equipo;
+package com.miguelch96.pichangapp.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

@@ -29,6 +29,40 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
+        <TextView
+            android:id="@+id/title1TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cerca tuyo:"
+            app:layout_constraintTop_toBottomOf="@id/canchasRecyclerView"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="@dimen/default_margin" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/canchas1RecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/title1TextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/title2TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reservadas anteriormente:"
+            app:layout_constraintTop_toBottomOf="@id/canchas1RecyclerView"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="@dimen/default_margin" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/canchas2RecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/title2TextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
     </android.support.constraint.ConstraintLayout>
    
 

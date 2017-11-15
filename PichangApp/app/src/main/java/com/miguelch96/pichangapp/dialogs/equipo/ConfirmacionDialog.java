@@ -3,6 +3,7 @@ package com.miguelch96.pichangapp.dialogs.equipo;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.Gravity;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.miguelch96.pichangapp.R;
+import com.miguelch96.pichangapp.dialogs.MessageDialog;
 
 /**
  * Created by Sergio on 17/10/2017.
@@ -19,39 +21,36 @@ import com.miguelch96.pichangapp.R;
 
 public class ConfirmacionDialog extends DialogFragment {
 
-private Button buttonAceptar;
-    private Button buttonCancelar;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        // Get the layout inflater
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_confirmacion, null);
+        String text = "Estás por retar al equipo: Peloteros FC, para el día : 10/10/17, el pago se va a dividir entre los dos, confirma la invitación por favor.";
 
-        buttonAceptar =(Button) view.findViewById(R.id.buttonAceptar);
-        buttonCancelar =(Button) view.findViewById(R.id.buttomCancelar);
+        builder.setTitle("Espera...")
+                .setMessage(text)
 
-        buttonCancelar.setOnClickListener(new View.OnClickListener() {
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(DialogInterface dialogInterface, int i) {
+                DialogFragment dialog = new MessageDialog();
+                String message = "Tu invitación ha sido realizada con éxito, ahora espera una respuesta.";
+                Bundle bundle = new Bundle();
+                bundle.putString("message", message);
+                bundle.putString("title", "¡En hora buena!");
+                dialog.setArguments(bundle);
+                dialog.show(getFragmentManager(), "MessageDialog");
+            }
+        })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
                 getDialog().dismiss();
             }
         });
 
-        buttonAceptar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogFragment dialog = new RetoEnviadoDialog();
-                dialog.show(getFragmentManager(), "RetoEnviadoDialog");
-            }
-        });
-
-
-        builder.setView(view);
-        AlertDialog alert = builder.create();
-        return alert;
+        return  builder.create();
     }
 
     @Nullable

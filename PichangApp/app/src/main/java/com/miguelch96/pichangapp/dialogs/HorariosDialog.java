@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.miguelch96.pichangapp.R;
-import com.miguelch96.pichangapp.dialogs.cancha.ReservaTerminadaDialog;
 import com.miguelch96.pichangapp.dialogs.equipo.ConfirmacionDialog;
 import com.miguelch96.pichangapp.models.Cancha;
 import com.miguelch96.pichangapp.models.Reserva;
@@ -72,9 +71,12 @@ public class HorariosDialog extends DialogFragment {
                     dialog.show(getFragmentManager(), "ConfirmacionDialog");
                 }
                else if(v.equalsIgnoreCase("cancha")){
-                    DialogFragment dialog = new ReservaTerminadaDialog();
+                    DialogFragment dialog = new MessageDialog();
+                    String message = "!Reserva realizada con exito!";
+                    bundle.putString("message", message);
+                    bundle.putString("title", "¡En hora buena!");
                     dialog.setArguments(bundle);
-                    dialog.show(getFragmentManager(), "ReservaTerminadaDialog");
+                    dialog.show(getFragmentManager(), "MessageDialog");
                 }
 
 
