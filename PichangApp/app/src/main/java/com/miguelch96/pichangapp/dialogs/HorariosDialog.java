@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,12 +23,13 @@ import com.miguelch96.pichangapp.R;
 import com.miguelch96.pichangapp.dialogs.equipo.ConfirmacionDialog;
 import com.miguelch96.pichangapp.models.Cancha;
 import com.miguelch96.pichangapp.models.Reserva;
+import com.miguelch96.pichangapp.network.ConvocadosAPI;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -39,6 +41,7 @@ public class HorariosDialog extends DialogFragment {
     private ListView listHorarios;
     private ImageView backButton;
     private List<String> horarios;
+    private List<Reserva> reservas;
 
 
     @Override
@@ -55,12 +58,8 @@ public class HorariosDialog extends DialogFragment {
         Cancha c =(Cancha) bundle.getSerializable("cancha");
         horarios = new ArrayList<>();
 
-       for (int i =0; i<c.getReservas().size(); i++){
-           Reserva r = c.getReservas().get(i);
-           if(dia.equalsIgnoreCase(r.getDia())){
-               horarios.add(r.getHoras());
-           }
-       }
+
+        buscarReservasDisponibles(bundle);
 
         ArrayAdapter<String> adaptador = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, horarios);
 
@@ -80,8 +79,8 @@ public class HorariosDialog extends DialogFragment {
                     dialog.setArguments(bundle);
                     dialog.show(getFragmentManager(), "ConfirmacionDialog");
                 }
-               else if(v.equalsIgnoreCase("cancha")){
-                    //putReserva(bundle);
+                else if(v.equalsIgnoreCase("cancha")){
+                    putReserva(bundle,i);
                     DialogFragment dialog = new MessageDialog();
                     String message = "!Reserva realizada con exito!";
                     bundle.putString("message", message);
@@ -89,8 +88,6 @@ public class HorariosDialog extends DialogFragment {
                     dialog.setArguments(bundle);
                     dialog.show(getFragmentManager(), "MessageDialog");
                 }
-
-
 
             }
         });
@@ -108,18 +105,55 @@ public class HorariosDialog extends DialogFragment {
         return alert;
     }
 
-    public void putReserva(Bundle bundle){
+
+    public void buscarReservasDisponibles(Bundle bundle){
+        Cancha c =(Cancha) bundle.getSerializable("cancha");
+        String dia = bundle.getString("dia");
+        final String horario = bundle.getString("horario");
+        String fecha =  String.valueOf(Calendar.getInstance().getFirstDayOfWeek());
+
+        reservas=new ArrayList<>();
+
+        String url = ConvocadosAPI.CANCHAS+c.getId()+"/reservaslibres";
+        Log.d("CONSULTAPI",url);
+        AndroidNetworking.get(url)
+                .addQueryParameter("fecha", "2017-11-09")
+                .setTag("test")
+                .setPriority(Priority.LOW)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            reservas = Reserva.from(response.getJSONArray("reservasDisponibles"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        for (int i=0;i<reservas.size();i++){
+                            horarios.add(reservas.get(i).getHoras());
+                        }
+                    }
+                    @Override
+                    public void onError(ANError error) {
+                        // handle error
+                    }
+                });
+    }
+
+    public void putReserva(Bundle bundle,int i){
         Cancha c =(Cancha) bundle.getSerializable("cancha");
         String dia = bundle.getString("dia");
         String horario = bundle.getString("horario");
         String fecha =  String.valueOf(Calendar.getInstance().getFirstDayOfWeek());
 
-        AndroidNetworking.post("https://fierce-cove-29863.herokuapp.com/createAnUser")
-                .addBodyParameter("dia", dia)
-                .addBodyParameter("horario", horario)
-                .addBodyParameter("fecha", fecha)
-                .addBodyParameter("idCancha", String.valueOf(c.getId()))
-                .addBodyParameter("idUsuario", String.valueOf(1))
+
+        int reservaid= reservas.get(i).getId();
+        Log.d("reservaId", String.valueOf(reservaid));
+        AndroidNetworking.put(ConvocadosAPI.RESERVAS+reservaid)
+                .addBodyParameter("reservaId", String.valueOf(reservaid))
+                .addBodyParameter("usuarioId", "1")
+                .addBodyParameter("estado", "Ocupado")
                 .setTag("test")
                 .setPriority(Priority.MEDIUM)
                 .build()
@@ -134,6 +168,7 @@ public class HorariosDialog extends DialogFragment {
                     }
                 });
     }
+
 
     @Nullable
     @Override
