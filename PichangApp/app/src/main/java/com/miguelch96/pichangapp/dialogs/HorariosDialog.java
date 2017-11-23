@@ -5,22 +5,21 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.miguelch96.pichangapp.R;
-import com.miguelch96.pichangapp.dialogs.equipo.ConfirmacionDialog;
+import com.miguelch96.pichangapp.adapters.horario.ReservaAdapter;
 import com.miguelch96.pichangapp.models.Cancha;
 import com.miguelch96.pichangapp.models.Reserva;
 import com.miguelch96.pichangapp.network.ConvocadosAPI;
@@ -38,10 +37,11 @@ import java.util.List;
 
 public class HorariosDialog extends DialogFragment {
 
-    private ListView listHorarios;
+    private RecyclerView horariosRecyclerView;
     private ImageView backButton;
-    private List<String> horarios;
     private List<Reserva> reservas;
+    private ReservaAdapter reservaAdapter;
+    private RecyclerView.LayoutManager horariosLayoutManager;
 
 
     @Override
@@ -52,45 +52,17 @@ public class HorariosDialog extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_horarios, null);
 
-        listHorarios = (ListView)view.findViewById(R.id.listviewHorarios);
         Bundle bundle = getArguments();
-        String dia = bundle.getString("dia");
-        Cancha c =(Cancha) bundle.getSerializable("cancha");
-        horarios = new ArrayList<>();
 
-
+        reservas=new ArrayList<>();
         buscarReservasDisponibles(bundle);
+        reservaAdapter=new ReservaAdapter(reservas);
 
-        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, horarios);
+        horariosLayoutManager=new LinearLayoutManager(view.getContext(),LinearLayoutManager.VERTICAL,false);
+        horariosRecyclerView=view.findViewById(R.id.horariosRecyclerView);
+        horariosRecyclerView.setAdapter(reservaAdapter);
+        horariosRecyclerView.setLayoutManager(horariosLayoutManager);
 
-        listHorarios.setAdapter(adaptador);
-
-        listHorarios.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String value = (String)adapterView.getItemAtPosition(i);
-
-                Bundle bundle = getArguments();
-                String v = bundle.getString("object");
-                bundle.putString("horario",value);
-
-                if(v.equalsIgnoreCase("equipo")){
-                    DialogFragment dialog = new ConfirmacionDialog();
-                    dialog.setArguments(bundle);
-                    dialog.show(getFragmentManager(), "ConfirmacionDialog");
-                }
-                else if(v.equalsIgnoreCase("cancha")){
-                    putReserva(bundle,i);
-                    DialogFragment dialog = new MessageDialog();
-                    String message = "!Reserva realizada con exito!";
-                    bundle.putString("message", message);
-                    bundle.putString("title", "¡En hora buena!");
-                    dialog.setArguments(bundle);
-                    dialog.show(getFragmentManager(), "MessageDialog");
-                }
-
-            }
-        });
 
         backButton = view.findViewById(R.id.backImageView);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -108,8 +80,6 @@ public class HorariosDialog extends DialogFragment {
 
     public void buscarReservasDisponibles(Bundle bundle){
         Cancha c =(Cancha) bundle.getSerializable("cancha");
-        String dia = bundle.getString("dia");
-        final String horario = bundle.getString("horario");
         String fecha =  String.valueOf(Calendar.getInstance().getFirstDayOfWeek());
 
         reservas=new ArrayList<>();
@@ -125,14 +95,15 @@ public class HorariosDialog extends DialogFragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
+                            Log.d("JSONRESERVA",response.toString());
                             reservas = Reserva.from(response.getJSONArray("reservasDisponibles"));
+                            reservaAdapter.setReservas(reservas);
+                            reservaAdapter.notifyDataSetChanged();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
 
-                        for (int i=0;i<reservas.size();i++){
-                            horarios.add(reservas.get(i).getHoras());
-                        }
+
                     }
                     @Override
                     public void onError(ANError error) {
@@ -141,7 +112,7 @@ public class HorariosDialog extends DialogFragment {
                 });
     }
 
-    public void putReserva(Bundle bundle,int i){
+    /*public void putReserva(Bundle bundle,int i){
         Cancha c =(Cancha) bundle.getSerializable("cancha");
         String dia = bundle.getString("dia");
         String horario = bundle.getString("horario");
@@ -167,7 +138,7 @@ public class HorariosDialog extends DialogFragment {
                         // handle error
                     }
                 });
-    }
+    }*/
 
 
     @Nullable
