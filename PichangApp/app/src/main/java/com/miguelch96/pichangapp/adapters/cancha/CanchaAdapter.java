@@ -68,6 +68,7 @@ public class CanchaAdapter extends RecyclerView.Adapter<CanchaAdapter.ViewHolder
                 Intent itemIntent = new Intent(view.getContext(), CanchaActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("cancha", cancha);
+                bundle.putSerializable("object", "cancha");
 
                 itemIntent.putExtras(bundle);
                 view.getContext().startActivity(itemIntent);

@@ -1,5 +1,10 @@
 package com.miguelch96.pichangapp.adapters.horario;
 
+import android.app.Activity;
+import android.app.DialogFragment;
+import android.content.Context;
+import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +16,8 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.miguelch96.pichangapp.R;
+import com.miguelch96.pichangapp.dialogs.MessageDialog;
+import com.miguelch96.pichangapp.dialogs.equipo.ConfirmacionDialog;
 import com.miguelch96.pichangapp.models.Reserva;
 import com.miguelch96.pichangapp.network.ConvocadosAPI;
 
@@ -28,6 +35,17 @@ public class ReservaAdapter extends RecyclerView.Adapter<ReservaAdapter.ViewHold
 
     public List<Reserva> getReservas() {
         return reservas;
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView nameCardHorarioTextView;
+        ConstraintLayout horarioCardView;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            nameCardHorarioTextView=itemView.findViewById(R.id.nameCardHorarioTextView);
+            horarioCardView = (ConstraintLayout) itemView.findViewById(R.id.horarioCardView);
+        }
     }
 
     public ReservaAdapter setReservas(List<Reserva> reservas) {
@@ -53,10 +71,29 @@ public class ReservaAdapter extends RecyclerView.Adapter<ReservaAdapter.ViewHold
 
         holder.nameCardHorarioTextView.setText(reserva.getHoras());
 
-        holder.nameCardHorarioTextView.setOnClickListener(new View.OnClickListener() {
+        holder.horarioCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 putReserva(reserva);
+                Bundle bundle =  ((Activity) v.getContext()).getIntent().getExtras();
+                String value = bundle.getString("object");
+
+                if(value.equalsIgnoreCase("equipo")){
+                    DialogFragment dialog = new ConfirmacionDialog();
+                    dialog.setArguments(bundle);
+                    dialog.show(((Activity) v.getContext()).getFragmentManager(), "ConfirmacionDialog");
+                }
+                else if(value.equalsIgnoreCase("cancha")){
+                    //putReserva(bundle);
+                    DialogFragment dialog = new MessageDialog();
+                    String message = "!Reserva realizada con exito!";
+                    bundle.putString("message", message);
+                    bundle.putString("title", "¡En hora buena!");
+                    dialog.setArguments(bundle);
+                    dialog.show(((Activity) v.getContext()).getFragmentManager(), "MessageDialog");
+                }
             }
         });
     }
@@ -87,11 +124,5 @@ public class ReservaAdapter extends RecyclerView.Adapter<ReservaAdapter.ViewHold
         return reservas.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView nameCardHorarioTextView;
-        public ViewHolder(View itemView) {
-            super(itemView);
-            nameCardHorarioTextView=itemView.findViewById(R.id.nameCardHorarioTextView);
-        }
-    }
+
 }

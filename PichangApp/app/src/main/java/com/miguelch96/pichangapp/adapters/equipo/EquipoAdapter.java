@@ -74,7 +74,7 @@ public class EquipoAdapter extends RecyclerView.Adapter<EquipoAdapter.ViewHolder
                 Intent itemIntent = new Intent(v.getContext(), EquipoActivity.class);
                 Bundle bundle = new Bundle();
                bundle.putSerializable("equipo", equipo);
-
+bundle.putString("object","equipo");
                 itemIntent.putExtras(bundle);
                 v.getContext().startActivity(itemIntent);
             }
